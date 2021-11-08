@@ -39,7 +39,7 @@ NIL.Logger.info("[OICQ]","准备登录QQ....");
 NIL.Logger.info('[OICQ]',"扫码后回车即可登录");
 
 //登录QQ
-//require('./Utils/Bot')
+require('./Utils/Bot')
 
 
 //控制台stop退出
