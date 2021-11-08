@@ -1,5 +1,4 @@
 NIL.FUNC.qq_ongroup_main = function(e){
-    //console.log(e);
     if(e.group_id != NIL.bot.config.group.main)return;
     const pt = e.raw_message.split(' ');
     switch(pt[0]){
@@ -48,6 +47,12 @@ NIL.FUNC.qq_ongroup_main = function(e){
             e.reply(NIL.LANG.get('REMOVE_WL_TO_SERVER',e.sender.user_id,xbox));
             break;
     }
+}
+
+NIL.FUNC.qq_ongroup_chat = function(e){
+    if(e.group_id != NIL.bot.config.group.chat)return;
+    //NIL.Logger.debug(NIL.TOOL.GetFormatText(e));
+    NIL.TOOL.sendTextAll(NIL.LANG.get('GROUP_MEMBER_CHAT',e.sender.nickname,NIL.TOOL.GetFormatText(e)));
 }
 /*
 {

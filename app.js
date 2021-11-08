@@ -30,6 +30,8 @@ require('./Utils/Lang');
 require('./Utils/PackHelper');
 //XDB-玩家数据
 require("./Utils/XDB");
+//解析消息函数
+require('./Utils/Message');
 
 
 for(i in NIL.SERVERS){
@@ -54,6 +56,5 @@ process.stdin.on('data',(input)=>{
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-	console.log('Unhandled Rejection:', reason)
-	// 在这里处理
+	NIL.Logger.error('Unhandled Rejection:', reason)
   })

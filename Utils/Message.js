@@ -7,9 +7,9 @@
 NIL.TOOL.getAt = function(e){
     var at = [];
     for(i in e.message){
-        switch(i.tyep){
+        switch(e.message[i].type){
             case "'at":
-                at.pop(i.qq);
+                at.pop(e.message[i].qq);
         }
     }
     return at;
@@ -18,19 +18,20 @@ NIL.TOOL.getAt = function(e){
 NIL.TOOL.GetFormatText = function(e){
     var rt = '';
     for(i in e.message){
-        switch(i.tyep){
+        //NIL.Logger.debug(e.message[i]);
+        switch(e.message[i].type){
             case "at":
-                if(i.qq.toString() == 'all'){
+                if(e.message[i].qq.toString() == 'all'){
                     rt+=NIL.LANG.get("MESSAGE_AT_ALL");
                     continue;
                 }
-                rt+= NIL.LANG.get('MESSAGE_AT',i.qq);
+                rt+= NIL.LANG.get('MESSAGE_AT',e.message[i].qq);
                 break;
             case"image":
                 rt+= NIL.LANG.get("MESSAGE_IMAGE");
                 break;
             case"text":
-                rt+= i.text;
+                rt+= e.message[i].text;
                 break;
         }
     }

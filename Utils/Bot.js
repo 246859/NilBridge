@@ -28,6 +28,7 @@ client.on("system.online", () => NIL.Logger.info('[OICQ]',"登录成功!"));//�
 client.on("message.group", e => {
     try{
       NIL.FUNC.qq_ongroup_main(e);
+      NIL.FUNC.qq_ongroup_chat(e);
     }catch(err){
       NIL.Logger.error('[OICQ]',err);
     }

@@ -32,9 +32,11 @@ NIL.FUNC.ws_onpack_item = function(ser,str){
             NIL.bot.sendMainMessage(NIL.LANG.get("WSPACK_RECEIVE_ERROR",ser,pack.params.msg));
             break;
         case "chat":
+            NIL.FUNC.send2Other(ser,'chat',pack.params.sender,pack.params.text);
             NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_CHAT',ser,pack.params.sender,pack.params.text));
             break;
         case "left":
+            NIL.FUNC.send2Other(ser,'left',pack.params.sender,'');
             NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_LEFT',ser,pack.params.sender));
             if(time[pack.params.sender]!=undefined){
                NIL.XDB.add_time(pack.params.sender,'time', Math.ceil((new Date() - time[pack.params.sender])/1000));
@@ -42,10 +44,34 @@ NIL.FUNC.ws_onpack_item = function(ser,str){
             }
             break;
         case "join":
+            NIL.FUNC.send2Other(ser,'join',pack.params.sender,'');
             NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_JOIN',ser,pack.params.sender));
             NIL.XDB.add_time(pack.params.sender,'join',1);
             tmie[pack.params.sender] = new Date();
             break;
+        default:
+            NIL.Logger.warn('[WS]',`接收到未知的数据包:${pack.cause}`);
+            NIL.bot.sendMainMessage(`从服务器[${ser}]接收到未知的数据包：${pack.cause}`)
+            break;
+    }
+}
+
+NIL.FUNC.send2Other = function(ser,mode,pl,t){
+    const txt = ' ';
+    switch(mode){
+        case "chat":
+            txt = NIL.LANG.get('SERVER_MEMBER_CHAT',ser,pl,t);
+        break;
+        case "join":
+            txt = NIL.LANG.get('SERVER_MEMBER_JOIN',ser,pl);
+            break;
+        case "left":
+            txt = NIL.LANG.get('SERVER_MEMBER_LEFT',ser,pl);
+            break;
+    }
+    for(i in NIL.SERVERS){
+        if(i != ser)
+            NIL.SERVERS[i].sendText(txt);
     }
 }
 

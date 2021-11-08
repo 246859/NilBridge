@@ -57,5 +57,10 @@ NIL.TOOL.RunCMDAll = function(cmd){
         NIL.SERVERS[i].sendCMD(cmd,NIL.TOOL.GUID());
     }
 }
+NIL.TOOL.sendTextAll = function(cmd){
+    for(i in NIL.SERVERS){
+        NIL.SERVERS[i].sendText(cmd);
+    }
+}
 
 NIL.Logger.info('[PH]','PACKHELPER 加载完成');
