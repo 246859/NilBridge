@@ -1,4 +1,5 @@
 const fs = require("fs");
+NIL.Logger.info("[INITS]",'开始加载服务器列表...');
 
 try{
     fs.statSync('./Data/servers.json')
@@ -14,4 +15,4 @@ for(i in cfg){
 }
 
 
-NIL.Logger.info("[INITS]",'服务器列表加载中...');
+NIL.Logger.info("[INITS]",'服务器列表加载完成');

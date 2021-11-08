@@ -7,12 +7,11 @@ NIL.FUNC = {};
 NIL.TOOL = {};
 NIL.CLASS = {};
 NIL.LANG = {};
+NIL.XDB = {};
 
 //日志模块
 require("./Utils/Logger");
-
 NIL.Logger.info('[NIL]','正在启动...');
-
 //AES模块
 require("./Utils/AES");
 //MD5模块
@@ -27,6 +26,10 @@ require("./Func/onWSReceive");
 require('./Func/onGroup');
 //lang模块
 require('./Utils/Lang');
+//数据包模块
+require('./Utils/PackHelper');
+//XDB-玩家数据
+require("./Utils/XDB");
 
 
 for(i in NIL.SERVERS){
@@ -38,8 +41,8 @@ NIL.Logger.info("[OICQ]","准备登录QQ....");
 NIL.Logger.info('[OICQ]',"扫码后回车即可登录");
 
 //登录QQ
-require('./Utils/Bot')
- 
+//require('./Utils/Bot')
+
 
 
 //控制台stop退出

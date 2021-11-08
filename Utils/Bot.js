@@ -10,7 +10,6 @@ try{
 
 var cfg = JSON.parse(fs.readFileSync('./Data/bot.json','utf8'));
 
-
 NIL.bot = {};
 NIL.bot.config = cfg;
 const account = cfg.botqq;

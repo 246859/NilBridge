@@ -14,19 +14,32 @@ NIL.FUNC.ws_onpack = function(ser,jsonstr){
     }
 }
 
-
 NIL.FUNC.ws_onpack_item = function(ser,str){
     var pack = JSON.parse(str);
-    //NIL.Logger.info('[WS]',`[${ser}]`,`收信 -> ${pack.cause}`);
+    NIL.Logger.info('[WS]',`[${ser}]`,`收信 <- ${pack.cause}`);
     switch(pack.cause){
         case "server_start":
             NIL.bot.sendMainMessage(NIL.LANG.get("SERVER_START",ser));
+            break;
         case "server_stop":
             NIL.bot.sendMainMessage(NIL.LANG.get("SERVER_STOP",ser));
-
+            break;
+        case "runcmdfeedback":
+            NIL.bot.sendMainMessage(NIL.LANG.get("CMD_FEEDBACK",ser,pack.params.result));
+            break;
+        case "decodefailed":
+            NIL.bot.sendMainMessage(NIL.LANG.get("WSPACK_RECEIVE_ERROR",ser,pack.params.msg));
+            break;
+        case "chat":
+            NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_CHAT',ser,pack.params.sender,pack.params.text));
+            break;
+        case "left":
+            NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_LEFT',ser,pack.params.sender));
+            break;
+        case "join":
+            NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_JOIN',ser,pack.params.sender));
+            break;
     }
 }
-
-
 
 NIL.Logger.info('[WSR]','WS通讯模块加载成功');

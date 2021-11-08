@@ -14,3 +14,25 @@ NIL.TOOL.getAt = function(e){
     }
     return at;
 };
+
+NIL.TOOL.GetFormatText = function(e){
+    var rt = '';
+    for(i in e.message){
+        switch(i.tyep){
+            case "at":
+                if(i.qq.toString() == 'all'){
+                    rt+=NIL.LANG.get("MESSAGE_AT_ALL");
+                    continue;
+                }
+                rt+= NIL.LANG.get('MESSAGE_AT',i.qq);
+                break;
+            case"image":
+                rt+= NIL.LANG.get("MESSAGE_IMAGE");
+                break;
+            case"text":
+                rt+= i.text;
+                break;
+        }
+    }
+    return rt;
+}
