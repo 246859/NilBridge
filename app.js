@@ -25,7 +25,7 @@ require("./Utils/initServers");
 require("./Func/onWSReceive");
 //qq群聊解析函数
 require('./Func/onGroup');
-//lang还没写完，暂时不要引用
+//lang模块
 require('./Utils/Lang');
 
 

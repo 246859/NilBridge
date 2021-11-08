@@ -8,16 +8,16 @@
 
 ``` js
 // 输出一条级别为调试的日志
-NIL.Logger.debug()
+NIL.Logger.debug('str')
 
 // 输出一条级别为信息的日志
-NIL.Logger.info()
+NIL.Logger.info('str')
 
 // 输出一条级别为警告的日志
-NIL.Logger.warn()
+NIL.Logger.warn('str')
 
 // 输出一条级别为错误的日志
-NIL.Logger.error()
+NIL.Logger.error('str')
 ```
 
 ### OICQ封装
@@ -71,5 +71,48 @@ NIL.LANG.get('SERVER_STOP') //返回“服务器{0}已关闭”
 NIL.LANG.get('SERVER_STOP','生存') //返回“服务器生存已关闭”
 
 NIL.LANG.get('MEMBER_LEFT','steve','生存') //返回“steve 离开了 生存”
+
+```
+
+### 服务器列表
+
+``` js
+
+// 是一个object对象，里面有所有服务器
+NIL.SERVER 
+
+/*
+每个服务器对象都有这些元素
+
+ws ws对象，可以直接使用send方法发送数据
+
+url ws的地址
+
+key AES加密密匙
+
+iv AES加密偏移量
+
+name 所连接的服务器名称
+*/
+```
+
+### Q群配置文件
+``` js
+
+// 一个object对象
+NIL.bot.config
+
+/*
+含有如下元素
+
+botqq 登录的QQ号
+
+protocol 客户端协议
+
+group.main 主群群号
+
+group.chat 聊天群群号
+
+*/
 
 ```
