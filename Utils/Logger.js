@@ -29,4 +29,4 @@ const options = {
 
 NIL.Logger = new Signale(options);
 
-NIL.Logger.info('[Logger]','模块加载成功');
+NIL.Logger.info('[LOGGER]','模块加载成功');

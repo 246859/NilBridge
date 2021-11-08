@@ -17,12 +17,12 @@ NIL.FUNC.ws_onpack = function(ser,jsonstr){
 
 NIL.FUNC.ws_onpack_item = function(ser,str){
     var pack = JSON.parse(str);
-    NIL.Logger.info('[WS]',`[${ser}]`,`收信 -> ${pack.cause}`);
+    //NIL.Logger.info('[WS]',`[${ser}]`,`收信 -> ${pack.cause}`);
     switch(pack.cause){
         case "server_start":
-            NIL.bot.sendMainMessage(`[${ser}] 服务器已开启`)
+            NIL.bot.sendMainMessage(NIL.LANG.get("SERVER_START",ser));
         case "server_stop":
-            NIL.bot.sendMainMessage(`[${ser}] 服务器已关闭`)
+            NIL.bot.sendMainMessage(NIL.LANG.get("SERVER_STOP",ser));
 
     }
 }

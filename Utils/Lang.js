@@ -46,8 +46,14 @@ NIL.LANG.set = function(k,v){
     lang[k] = v;
 }
 
-NIL.LANG.get = function(g,s){
-    
+NIL.LANG.get = function(g){
+    if (arguments.length == 1) return arguments[0]
+    if(lang[arguments[0]] == undefined) return arguments[0];
+    var gs = {};
+    for(i=1;i<arguments.length;i++){
+        gs[(i-1).toString()] = arguments[i];
+    }
+    return lang[arguments[0]].format(gs);
 }
 
 function init(){
@@ -67,8 +73,9 @@ function init(){
       }
     });
     rl.on('close',()=>{
-        console.log(lang);
+        NIL.Logger.info("[LANG]",'Lang文件读取完毕');
     });
 }
 
 init()
+NIL.Logger.info("[LANG]","LANG 模块加载成功")

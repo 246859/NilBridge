@@ -1,5 +1,4 @@
-const fs = require('fs');
-
+"use strict" //oicq需要开启严格模式
 //全局变量 NIL
 global.NIL = {};
 
@@ -27,7 +26,7 @@ require("./Func/onWSReceive");
 //qq群聊解析函数
 require('./Func/onGroup');
 //lang还没写完，暂时不要引用
-//require('./Utils/Lang');
+require('./Utils/Lang');
 
 
 for(i in NIL.SERVERS){
@@ -40,6 +39,7 @@ NIL.Logger.info('[OICQ]',"扫码后回车即可登录");
 
 //登录QQ
 require('./Utils/Bot')
+ 
 
 
 //控制台stop退出
