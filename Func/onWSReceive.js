@@ -1,4 +1,5 @@
 
+var time = {};
 
 NIL.FUNC.ws_onpack = function(ser,jsonstr){
     var server = NIL.SERVERS[ser];
@@ -35,9 +36,15 @@ NIL.FUNC.ws_onpack_item = function(ser,str){
             break;
         case "left":
             NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_LEFT',ser,pack.params.sender));
+            if(time[pack.params.sender]!=undefined){
+               NIL.XDB.add_time(pack.params.sender,'time', Math.ceil((new Date() - time[pack.params.sender])/1000));
+               delete time[pack.params.sender];
+            }
             break;
         case "join":
             NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_JOIN',ser,pack.params.sender));
+            NIL.XDB.add_time(pack.params.sender,'join',1);
+            tmie[pack.params.sender] = new Date();
             break;
     }
 }

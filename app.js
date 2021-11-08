@@ -41,7 +41,7 @@ NIL.Logger.info("[OICQ]","准备登录QQ....");
 NIL.Logger.info('[OICQ]',"扫码后回车即可登录");
 
 //登录QQ
-//require('./Utils/Bot')
+require('./Utils/Bot')
 
 
 
@@ -52,3 +52,8 @@ process.stdin.on('data',(input)=>{
 		setTimeout(function(){process.exit(0)},1000)
 	}
 });
+
+process.on('unhandledRejection', (reason, promise) => {
+	console.log('Unhandled Rejection:', reason)
+	// 在这里处理
+  })

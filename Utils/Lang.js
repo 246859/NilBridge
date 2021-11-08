@@ -47,12 +47,12 @@ NIL.LANG.set = function(k,v){
 }
 
 NIL.LANG.get = function(g){
-    if (arguments.length == 1) return arguments[0]
     if(lang[arguments[0]] == undefined) return arguments[0];
     var gs = {};
     for(i=1;i<arguments.length;i++){
         gs[(i-1).toString()] = arguments[i];
     }
+    if(Object.keys(gs).length ==0) return lang[arguments[0]];
     return lang[arguments[0]].format(gs);
 }
 

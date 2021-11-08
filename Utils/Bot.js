@@ -25,9 +25,9 @@ const client = createClient(account,conf);
 client.on("system.online", () => NIL.Logger.info('[OICQ]',"登录成功!"));//登录成功提示
 
 
-client.on("message", e => {
+client.on("message.group", e => {
     try{
-      NIL.FUNC.qq_ongroup(e);
+      NIL.FUNC.qq_ongroup_main(e);
     }catch(err){
       NIL.Logger.error('[OICQ]',err);
     }

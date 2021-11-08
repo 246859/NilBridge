@@ -52,4 +52,10 @@ NIL.TOOL.GetEncryptPack = function(k,iv,pack){
     return JSON.stringify(p);
 }
 
+NIL.TOOL.RunCMDAll = function(cmd){
+    for(i in NIL.SERVERS){
+        NIL.SERVERS[i].sendCMD(cmd,NIL.TOOL.GUID());
+    }
+}
+
 NIL.Logger.info('[PH]','PACKHELPER 加载完成');

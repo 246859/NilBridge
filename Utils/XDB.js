@@ -13,7 +13,7 @@ db = JSON.parse(NIL.TOOL.AESdecrypt(dbkey.k,dbkey.iv,fs.readFileSync('./Data/pla
 
 
 NIL.XDB.wl_exsis = function(qq){
-    return db[qq] == undefined;
+    return db[qq] != undefined;
 }
 
 NIL.XDB.wl_add = function(qq,id){
@@ -26,12 +26,13 @@ NIL.XDB.wl_remove = function(qq){
         delete db[qq];
         NIL.XDB.save();
     }
-
 };
 
 NIL.XDB.get_xboxid = function(id){
     if(NIL.XDB.wl_exsis(id))
         return db[id].xboxid;
+    else
+        return '????';
 }
 
 NIL.XDB.get_qq = function(id){
@@ -53,6 +54,22 @@ NIL.XDB.xboxid_exsis = function(id){
 NIL.XDB.get_player = function(id){
     if(NIL.XDB.wl_exsis(id))
         return db[id];
+}
+
+NIL.XDB.add_time = function(pl,mode,t){
+    if(NIL.XDB.xboxid_exsis(pl)==false)return;
+    switch(mode){
+        case "join":
+            db[NIL.XDB.get_qq(pl)].count.join +=t;
+            break;
+        case "death":
+            db[NIL.XDB.get_qq(pl)].count.death +=t;
+            break;
+        case "time":
+            db[NIL.XDB.get_qq(pl)].count.duration +=t;
+            break;
+    }
+    NIL.XDB.save();
 }
 
 NIL.XDB.save = function(){
