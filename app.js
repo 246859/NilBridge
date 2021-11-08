@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+//全局变量 NIL
 global.NIL = {};
 
 NIL.SERVERS = {};
@@ -26,7 +27,7 @@ NIL.Logger.info("[OICQ]","准备登录QQ....");
 NIL.Logger.info('[OICQ]',"扫码后回车即可登录");
 
 
-//require('./Utils/Bot')
+require('./Utils/Bot')
 
 
 
