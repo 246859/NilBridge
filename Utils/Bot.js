@@ -1,6 +1,11 @@
 const { createClient } = require("oicq");
 const fs = require("fs");
 
+try{
+  fs.statSync('./Data/bot.json')
+}catch{
+  fs.writeFileSyn('./Data/bot.json',JSON.stringify({botqq:114514,protocol:3,group:{main:114154,chat:114514}}));
+}
 
 var cfg = JSON.parse(fs.readFileSync('./Data/bot.json','utf8'));
 
