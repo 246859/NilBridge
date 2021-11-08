@@ -1,4 +1,6 @@
-Data/
+Data/bot.json
+Data/^[0-9]*$/
+
 
 # Logs
 logs
