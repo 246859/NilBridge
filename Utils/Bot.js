@@ -22,13 +22,16 @@ const conf = {//机器人内部配置
 };
 const client = createClient(account,conf);
 
-client.on("system.online", () => NIL.Logger.info('[OICQ]',"登录成功!"));
+client.on("system.online", () => NIL.Logger.info('[OICQ]',"登录成功!"));//登录成功提示
+
 
 client.on("message", e => {
-  //console.log(e);
-  //client.pickGroup(808776416).sendMsg('nmsl');
-  //e.reply("hello world", true); //true表示引用对方的消息
-})
+    try{
+      NIL.FUNC.qq_ongroup(e);
+    }catch(err){
+      NIL.Logger.error('[OICQ]',err);
+    }
+});
 
 client.on("system.login.qrcode", function (e) {
   //扫码后按回车登录
@@ -38,21 +41,21 @@ client.on("system.login.qrcode", function (e) {
 }).login();
 
 NIL.bot.sendGroupMessage = function(group,msg){
-    if(client.status != 11) {NIL.Logger.warn('[OICQ]','插件在未登录时调用了API'); return;}
+    if(client.status != 11) {NIL.Logger.warn('[OICQ]','插件在QQ未登录时调用了API'); return;}//直接返回防止oicq崩溃
     client.pickGroup(group).sendMsg(msg);
 }
 
 NIL.bot.sendFriendMessage = function(friend,msg){
-    if(client.status != 11){ NIL.Logger.warn('[OICQ]','插件在未登录时调用了API'); return;}
+    if(client.status != 11){ NIL.Logger.warn('[OICQ]','插件在QQ未登录时调用了API'); return;}
     client.pickFriend(friend).sendMsg(msg);
 }
 
 NIL.bot.sendMainMessage = function(msg){
-  if(client.status != 11){ NIL.Logger.warn('[OICQ]','插件在未登录时调用了API'); return;}
+  if(client.status != 11){ NIL.Logger.warn('[OICQ]','插件在QQ未登录时调用了API'); return;}
     client.pickGroup(cfg.group.main).sendMsg(msg);
 }
 
 NIL.bot.sendChatMessage = function(msg){
-  if(client.status != 11){ NIL.Logger.warn('[OICQ]','插件在未登录时调用了API'); return;}
+  if(client.status != 11){ NIL.Logger.warn('[OICQ]','插件在QQ未登录时调用了API'); return;}
   client.pickGroup(cfg.group.chat).sendMsg(msg);
 }
