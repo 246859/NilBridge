@@ -7,11 +7,17 @@
 ### 日志模块
 
 ``` js
-
+// 输出一条级别为调试的日志
 NIL.Logger.debug()
+
+// 输出一条级别为信息的日志
 NIL.Logger.info()
+
+// 输出一条级别为警告的日志
 NIL.Logger.warn()
-NIL.Logger.error
+
+// 输出一条级别为错误的日志
+NIL.Logger.error()
 ```
 
 ### OICQ封装
@@ -58,8 +64,12 @@ NIL.LAN.set('k','v')
 // 格式化lang字符串，可以接受多个参数
 NIL.LANG.get('str'[,'str1','str2'...'strn'])
 
-// NIL.LANG.get('SERVER') 返回“SERVER”因为lang文件没有这一项
-// NIL.LANG.get('SERVER_STOP') 返回“服务器{0}已关闭”
-// NIL.LANG.get('SERVER_STOP','生存') 返回“服务器生存已关闭”
-// NIL.LANG.get('MEMBER_LEFT','steve','生存') 返回“steve 离开了 生存”
+NIL.LANG.get('SERVER') //返回“SERVER”，因为lang文件没有这一项
+
+NIL.LANG.get('SERVER_STOP') //返回“服务器{0}已关闭”
+
+NIL.LANG.get('SERVER_STOP','生存') //返回“服务器生存已关闭”
+
+NIL.LANG.get('MEMBER_LEFT','steve','生存') //返回“steve 离开了 生存”
+
 ```
