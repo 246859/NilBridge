@@ -84,8 +84,6 @@ NIL.SERVER
 /*
 每个服务器对象都有这些元素
 
-ws ws对象，可以直接使用send方法发送数据
-
 url ws的地址
 
 key AES加密密匙
@@ -94,11 +92,13 @@ iv AES加密偏移量
 
 name 所连接的服务器名称
 
-方法
+ws ws对象
 
-sendCMD('cmd','id')  向服务器执行命令
+每个ws对象有如下方法
 
-sendText('text') 向服务器发送文本
+sendCMD(cmd,id)  向服务器执行命令
+
+sendText(text) 向服务器发送文本
 
 
 */
@@ -169,3 +169,17 @@ NIL.XDB.add_time('steve','join',1) //xboxid为steve的玩家加入服务器次�
 NIL.XDB.add_time('steve','time',1) //xboxid为steve的玩家游玩时间加一分钟
 
 ```
+
+### 设置处理函数
+``` js
+
+// 注册函数监听websocket收包
+// 传入的数据是解密过的数据包
+// 函数原型 func(ser,pack) ser为服务器名称,pack为解密过的数据包
+NIL.FUNC.PLUGINS.WS.push(func)
+
+// 注册函数监听群聊
+// 函数原型 func(e) e为消息对象，来自OICQ
+NIL.FUNC.PLUGINS.GROUP.push(func)
+
+````

@@ -15,6 +15,14 @@ function ws_onpack (ser,jsonstr){
             return;
         }
         NIL.FUNC.ws_onpack_item(ser,packtext);
+        NIL.FUNC.PLUGINS.WS.forEach(element => {
+            try{
+                //NIL.Logger.debug(str.utf8Data);
+                element(ser,packtext);
+            }catch(err){
+                NIL.Logger.error('[WS]',`[${this.name}]`,err);
+            }
+        });
     }
     else if(pack.type == 'pack'){
         NIL.FUNC.ws_onpack_item(ser,jsonstr);
