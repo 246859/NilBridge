@@ -26,6 +26,10 @@ function group_main(e){
             }
             else{
                 if(pt.length > 2){
+                    if(NIL.SERVERS[pt[1]] == undefined){
+                        e.reply(`没有名为${pt[1]}的服务器`,true);
+                        return;
+                    }
                     NIL.SERVERS[pt[1]].sendCMD(e.raw_message.substr(`/cmd ${pt[1]} `.length));
                     e.reply(NIL.LANG.get("COMMAND_SENDTO_SERVER",e.raw_message.substr(`/cmd ${pt[1]} `.length),pt[1]),true);
                 }else{
@@ -34,6 +38,10 @@ function group_main(e){
             }
             break;
         case "/bind":
+            if(pt.length<2){
+                e.reply(NIL.LANG.get('COMMAND_OVERLOAD_NOTFIND'),true);
+                return;
+            }
             var xbox = e.raw_message.substr(6);
             if(NIL.XDB.xboxid_exsis(xbox)){
                 e.reply(NIL.LANG.get('XBOXID_ALREADY_BIND'),true);

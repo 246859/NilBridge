@@ -5,7 +5,7 @@ const fs = require("fs");
 try{
   fs.statSync('./Data/bot.json')
 }catch{
-  fs.writeFileSync('./Data/bot.json',JSON.stringify({botqq:114514,protocol:3,group:{main:114154,chat:114514}},null,"\t"));
+  fs.writeFileSync('./Data/bot.json',JSON.stringify({botqq:114514,protocol:3,group:{main:114154,chat:114514},admin:[114514]},null,"\t"));
   NIL.Logger.info('[OICQ]','配置文件创建完成，请修改Data/bot.json');
   process.exit(0)
 }
@@ -44,6 +44,16 @@ client.on("message.group", e => {
     }
   });
 });
+client.on('notice.group.decrease',e=>{
+  if(e.group_id == NIL.bot.config.group.main){
+    //MEMBER_LEFT_GROUP
+    if(NIL.XDB.wl_exsis(e.user_id)){
+      NIL.bot.sendMainMessage(NIL.LANG.get('MEMBER_LEFT_GROUP'))
+      NIL.TOOL.RunCMDAll(`whitelist remove "${NIL.XDB.get_xboxid(e.user_id)}"`);
+      NIL.XDB.wl_remove(e.user_id);
+    }
+  }
+});
 
 client.on("system.login.qrcode", function (e) {
   //扫码后按回车登录
@@ -63,11 +73,9 @@ NIL.bot.sendFriendMessage = function(friend,msg){
 }
 
 NIL.bot.sendMainMessage = function(msg){
-  if(client.status != 11){ NIL.Logger.warn('[OICQ]','插件在QQ未登录时调用了API'); return;}
-    client.pickGroup(cfg.group.main).sendMsg(msg);
+  NIL.bot.sendGroupMessage(cfg.group.main,msg);
 }
 
 NIL.bot.sendChatMessage = function(msg){
-  if(client.status != 11){ NIL.Logger.warn('[OICQ]','插件在QQ未登录时调用了API'); return;}
-  client.pickGroup(cfg.group.chat).sendMsg(msg);
+  NIL.bot.sendGroupMessage(cfg.group.chat,msg);
 }

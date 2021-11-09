@@ -19,9 +19,15 @@ markdown_extensions:
   - pymdownx.critic
   - pymdownx.highlight
   - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+
 
 nav:
   - HOME: index.md
   - 文件: file.md
   - 命令: cmd.md 
+  - API: API.md
   - 常见问题: QandA.md
+  - 更新日志: update.md
+  - 开源协议: LIC.md

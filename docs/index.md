@@ -6,7 +6,7 @@
 
 NilBridge是一款基于Node.js的QQ机器人框架，用于对接基岩版MC服务器
 
-⚠️ 开始使用之前，请确保您装载了LLWebsoket，若未装载请您移步[装载LLWS](http://xbridgex.cn/user/llws/install)
+⚠️ 开始使用之前，请确保您装载了LLWebsoket，若未装载请您移步[装载LLWS](http://http://xbridgex.site/user/llws/install)
 
 <font color="#FF0000">遇到bug，问题请先在[常见问题](./QandA.md)处寻找相关问题！</font><br>
 
@@ -17,3 +17,7 @@ NilBridge是一款基于Node.js的QQ机器人框架，用于对接基岩版MC服
  - [用户命令](./cmd.md)
 
  - [常见问题](./QandA.md)
+
+ - [更新日志](./update.md)
+
+ - [用户协议](./LIC.md)

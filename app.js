@@ -12,7 +12,8 @@ NIL.SERVERS = {};
 NIL.FUNC = {
 	NATIVE : {
 		WS :[],
-		GROUP:[]
+		GROUP:[],
+		LEFT : []
 	},
 	PLUGINS : {
 		WS :[],
