@@ -4,6 +4,7 @@ const fs = require('fs');
 //全局变量 NIL
 global.NIL = {};
 
+
 NIL.ROOTPATH = __dirname;
 NIL.PLUGINS = [];
 NIL.ADMIN = [];
@@ -65,7 +66,7 @@ NIL.Logger.info("[OICQ]","准备登录QQ....");
 NIL.Logger.info('[OICQ]',"扫码后回车即可登录");
 
 //登录QQ
-//require('./Utils/Bot')
+require('./Utils/Bot')
 
 NIL.FUNC.plload();
 
@@ -87,4 +88,4 @@ process.stdin.on('data',(input)=>{
 
 process.on('unhandledRejection', (reason, promise) => {
 	NIL.Logger.error('Unhandled Rejection:', reason)
-  })
+});
