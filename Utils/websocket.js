@@ -23,12 +23,14 @@ NIL.CLASS.ws_ser = class{
                 },5000);
             });
             con.on('message',(str)=>{
-                try{
-                    //NIL.Logger.debug(str.utf8Data);
-                    NIL.FUNC.ws_onpack(this.name,str.utf8Data);
-                }catch(err){
-                    NIL.Logger.error('[WS]',`[${this.name}]`,err);
-                }
+                NIL.FUNC.NATIVE.WS.forEach(element => {
+                    try{
+                        //NIL.Logger.debug(str.utf8Data);
+                        element(this.name,str.utf8Data);
+                    }catch(err){
+                        NIL.Logger.error('[WS]',`[${this.name}]`,err);
+                    }
+                });
             });
             con.on('error',(err)=>{
                 NIL.Logger.error('[WS]',`[${this.name}]`,`连接出错：${err}`);

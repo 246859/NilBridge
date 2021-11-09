@@ -6,6 +6,8 @@ try{
   fs.statSync('./Data/bot.json')
 }catch{
   fs.writeFileSync('./Data/bot.json',JSON.stringify({botqq:114514,protocol:3,group:{main:114154,chat:114514}},null,"\t"));
+  NIL.Logger.info('[OICQ]','配置文件创建完成，请修改Data/bot.json');
+  process.exit(0)
 }
 
 var cfg = JSON.parse(fs.readFileSync('./Data/bot.json','utf8'));
@@ -27,12 +29,20 @@ client.on("system.online", () => NIL.Logger.info('[OICQ]',"登录成功!"));//�
 
 
 client.on("message.group", e => {
+  NIL.FUNC.NATIVE.GROUP.forEach(element=>{
     try{
-      NIL.FUNC.qq_ongroup_main(e);
-      NIL.FUNC.qq_ongroup_chat(e);
+      element(e);
     }catch(err){
-      NIL.Logger.error('[OICQ]',err);
+      NIL.Logger.error('[OICQ]','[NATIVE]',err);
     }
+  });
+  NIL.FUNC.PLUGINS.GROUP.forEach(element=>{
+    try{
+      element(e);
+    }catch(err){
+      NIL.Logger.error('[OICQ]','[PLUGINS]',err);
+    }
+  });
 });
 
 client.on("system.login.qrcode", function (e) {

@@ -1,11 +1,20 @@
 
 var time = {};
 
-NIL.FUNC.ws_onpack = function(ser,jsonstr){
+
+function ws_onpack (ser,jsonstr){
     var server = NIL.SERVERS[ser];
     var pack = JSON.parse(jsonstr);
+    var packtext = '';
     if(pack.type == 'encrypted'){
-        NIL.FUNC.ws_onpack_item(ser,NIL.TOOL.AESdecrypt(server.k,server.iv,pack.params.raw));
+        try{
+            packtext = NIL.TOOL.AESdecrypt(server.k,server.iv,pack.params.raw)
+        }
+        catch(err){
+            NIL.Logger.error('[WS]',`与服务器[${ser}]的数据包解密失败：${err}！！！请检查密匙是否正确`);
+            return;
+        }
+        NIL.FUNC.ws_onpack_item(ser,packtext);
     }
     else if(pack.type == 'pack'){
         NIL.FUNC.ws_onpack_item(ser,jsonstr);
@@ -15,7 +24,7 @@ NIL.FUNC.ws_onpack = function(ser,jsonstr){
     }
 }
 
-NIL.FUNC.ws_onpack_item = function(ser,str){
+NIL.FUNC.ws_onpack_item=function (ser,str){
     var pack = JSON.parse(str);
     NIL.Logger.info('[WS]',`[${ser}]`,`收信 <- ${pack.cause}`);
     switch(pack.cause){
@@ -36,7 +45,7 @@ NIL.FUNC.ws_onpack_item = function(ser,str){
             NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_CHAT',ser,pack.params.sender,pack.params.text));
             break;
         case "left":
-            NIL.FUNC.send2Other(ser,'left',pack.params.sender,'');
+            NIL.FUNC.send2Other(ser,'left',pack.params.sender,'','');
             NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_LEFT',ser,pack.params.sender));
             if(time[pack.params.sender]!=undefined){
                NIL.XDB.add_time(pack.params.sender,'time', Math.ceil((new Date() - time[pack.params.sender])/1000));
@@ -44,12 +53,12 @@ NIL.FUNC.ws_onpack_item = function(ser,str){
             }
             break;
         case "join":
-            const t = 0;
-            if(NIL.XDB.xboxid_exsis(pack.params.sender)) t = NIL.XDB.get_player(pack.params.sender).count.join;
-            NIL.FUNC.send2Other(ser,'join',pack.params.sender,'');
-            NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_JOIN',ser,pack.params.sender,t.toString()));
+            var t = 0;
+            if(NIL.XDB.xboxid_exsis(pack.params.sender)) t = NIL.XDB.get_player(NIL.XDB.get_qq(pack.params.sender)).count.join;
+            NIL.FUNC.send2Other(ser,'join',pack.params.sender,'','');
+            NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_JOIN',ser,pack.params.sender,(t+1).toString()));
             NIL.XDB.add_time(pack.params.sender,'join',1);
-            tmie[pack.params.sender] = new Date();
+            time[pack.params.sender] = new Date();
             break;
         default:
             NIL.Logger.warn('[WS]',`接收到未知的数据包:${pack.cause}`);
@@ -59,11 +68,11 @@ NIL.FUNC.ws_onpack_item = function(ser,str){
 }
 
 NIL.FUNC.send2Other = function(ser,mode,pl,t){
-    const txt = ' ';
+    var txt = ' ';
     switch(mode){
         case "chat":
             txt = NIL.LANG.get('SERVER_MEMBER_CHAT',ser,pl,t);
-        break;
+            break;
         case "join":
             txt = NIL.LANG.get('SERVER_MEMBER_JOIN',ser,pl);
             break;
@@ -76,5 +85,7 @@ NIL.FUNC.send2Other = function(ser,mode,pl,t){
             NIL.SERVERS[i].sendText(txt);
     }
 }
+
+NIL.FUNC.NATIVE.WS.push(ws_onpack);
 
 NIL.Logger.info('[WSR]','WS通讯模块加载成功');

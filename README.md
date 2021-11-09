@@ -24,10 +24,10 @@ NIL.Logger.error('str')
 
 ``` js
 // 发送群消息
-NIL.bot.sendGroupMessage(1145141919,'哼哼 啊啊啊啊啊啊')
+NIL.bot.sendGroupMessage(group_id,'哼哼 啊啊啊啊啊啊')
 
 // 发送好友信息
-NIL.bot.sendFriendMessage(1145141919,'哼哼 啊啊啊啊啊啊啊')
+NIL.bot.sendFriendMessage(friend_id,'哼哼 啊啊啊啊啊啊啊')
 
 // 直接发送消息到主群
 NIL.bot.sendMainMessage('哼哼 啊啊啊啊啊啊')
@@ -93,6 +93,14 @@ key AES加密密匙
 iv AES加密偏移量
 
 name 所连接的服务器名称
+
+方法
+
+sendCMD('cmd','id')  向服务器执行命令
+
+sendText('text') 向服务器发送文本
+
+
 */
 ```
 
@@ -114,5 +122,50 @@ group.main 主群群号
 group.chat 聊天群群号
 
 */
+
+```
+
+### 玩家数据
+
+``` js
+
+// 返回该qq号是否绑定xbooxid
+NIL.XDB.wl_exsis(qq)
+
+// 添加玩家信息到数据库
+NIL.XDB.wl_add(qq,xboxid)
+
+// 移除玩家数据
+NIL.XDB.wl_remove(qq)
+
+// 获取qq所绑定的xboxid，没有绑定返回undefined
+NIL.XDB.get_xboxid(qq)
+
+// 获取xboxid对应的qq号，没有绑定返回0
+NIL.XDB.get_qq(xboxid)
+
+// 查询xboxid是否被绑定
+NIL.XDB.xboxid_exsis(xboxid)
+
+// 获取qq号对应的玩家数据
+NIL.XDB.get_player(qq)
+
+/*
+玩家数据对象有如下元素
+
+xboxid 玩家绑定的xboxid
+
+count.join 加入服务器次数
+
+count.duration 游玩时间，单位分钟
+
+*/
+
+// 修改玩家数据
+NIL.XDB.add_time(xboxid,mode,time)
+
+NIL.XDB.add_time('steve','join',1) //xboxid为steve的玩家加入服务器次数加一
+
+NIL.XDB.add_time('steve','time',1) //xboxid为steve的玩家游玩时间加一分钟
 
 ```

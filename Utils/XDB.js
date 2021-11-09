@@ -31,8 +31,6 @@ NIL.XDB.wl_remove = function(qq){
 NIL.XDB.get_xboxid = function(id){
     if(NIL.XDB.wl_exsis(id))
         return db[id].xboxid;
-    else
-        return '????';
 }
 
 NIL.XDB.get_qq = function(id){
@@ -51,9 +49,9 @@ NIL.XDB.xboxid_exsis = function(id){
     return false;
 }
 
-NIL.XDB.get_player = function(id){
-    if(NIL.XDB.wl_exsis(id))
-        return db[id];
+NIL.XDB.get_player = function(qq){
+    if(NIL.XDB.wl_exsis(qq))
+        return db[qq];
 }
 
 NIL.XDB.add_time = function(pl,mode,t){

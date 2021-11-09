@@ -1,4 +1,4 @@
-NIL.FUNC.qq_ongroup_main = function(e){
+function group_main(e){
     if(e.group_id != NIL.bot.config.group.main)return;
     const pt = e.raw_message.split(' ');
     switch(pt[0]){
@@ -59,11 +59,14 @@ NIL.FUNC.qq_ongroup_main = function(e){
     }
 }
 
-NIL.FUNC.qq_ongroup_chat = function(e){
+function group_chat(e){
     if(e.group_id != NIL.bot.config.group.chat)return;
     //NIL.Logger.debug(NIL.TOOL.GetFormatText(e));
     NIL.TOOL.sendTextAll(NIL.LANG.get('GROUP_MEMBER_CHAT',e.sender.nickname,NIL.TOOL.GetFormatText(e)));
 }
+
+NIL.FUNC.NATIVE.GROUP.push(group_chat);
+NIL.FUNC.NATIVE.GROUP.push(group_main);
 /*
 {
   post_type: 'message',
