@@ -1,7 +1,11 @@
 "use strict" //oicq需要开启严格模式
+
+const fs = require('fs');
 //全局变量 NIL
 global.NIL = {};
 
+NIL.ROOTPATH = __dirname;
+NIL.ADMIN = [];
 NIL.SERVERS = {};
 NIL.FUNC = {};
 NIL.TOOL = {};
@@ -9,6 +13,10 @@ NIL.CLASS = {};
 NIL.LANG = {};
 NIL.XDB = {};
 
+//logo输出
+const LOGO_FILE_PATH = './core/logo.txt';
+let data = fs.readFileSync(LOGO_FILE_PATH, 'utf-8');
+console.log(data);
 //日志模块
 require("./Utils/Logger");
 NIL.Logger.info('[NIL]','正在启动...');
@@ -32,6 +40,10 @@ require('./Utils/PackHelper');
 require("./Utils/XDB");
 //解析消息函数
 require('./Utils/Message');
+//文档服务器
+require('./Utils/express');
+
+
 
 
 for(i in NIL.SERVERS){
@@ -43,7 +55,7 @@ NIL.Logger.info("[OICQ]","准备登录QQ....");
 NIL.Logger.info('[OICQ]',"扫码后回车即可登录");
 
 //登录QQ
-require('./Utils/Bot')
+//require('./Utils/Bot')
 
 
 

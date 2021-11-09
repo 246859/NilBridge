@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "express": "^4.17.1",
     "md5-node": "^1.0.1",
     "oicq": "^2.1.4",
     "signale": "^1.4.0",

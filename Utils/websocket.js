@@ -59,4 +59,12 @@ NIL.CLASS.ws_ser = class{
             NIL.Logger.error('[WS]',`[${this.name}]`,err);
         }
     }
+    sendStart(){
+        try{
+            NIL.Logger.info('[WS]',`[${this.name}]`,'发信 -> startrequest');
+            this.con.send(NIL.TOOL.GetStartPack(this.k,this.iv));
+        }catch(err){
+            NIL.Logger.error('[WS]',`[${this.name}]`,err);
+        }
+    }
 }

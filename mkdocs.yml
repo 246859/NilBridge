@@ -1,0 +1,27 @@
+site_name: NilBridge
+copyright: Copyright &copy; 2020 - 2021 XBridgeX
+theme:
+    name: material
+    language: zh
+    logo: img/favicon.svg
+    favicon: img/favicon.png
+    features:
+        - search.highlight
+        - seach.suggest
+    plugins:
+      - search:
+          separator: '[\s\-\.]'
+
+extra:
+  generator: false
+
+markdown_extensions:
+  - pymdownx.critic
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+nav:
+  - HOME: index.md
+  - 文件: file.md
+  - 命令: cmd.md 
+  - 常见问题: QandA.md

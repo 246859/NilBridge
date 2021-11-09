@@ -12,6 +12,7 @@ var cfg = JSON.parse(fs.readFileSync('./Data/bot.json','utf8'));
 
 NIL.bot = {};
 NIL.bot.config = cfg;
+NIL.ADMIN = cfg.admin;
 const account = cfg.botqq;
 const conf = {//机器人内部配置
     platform: cfg.protocol,//QQ登录协议。1:安卓手机 2:安卓平板 3:安卓手表 4:MacOS 5:iPad

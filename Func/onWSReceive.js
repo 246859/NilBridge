@@ -44,8 +44,10 @@ NIL.FUNC.ws_onpack_item = function(ser,str){
             }
             break;
         case "join":
+            const t = 0;
+            if(NIL.XDB.xboxid_exsis(pack.params.sender)) t = NIL.XDB.get_player(pack.params.sender).count.join;
             NIL.FUNC.send2Other(ser,'join',pack.params.sender,'');
-            NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_JOIN',ser,pack.params.sender));
+            NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_JOIN',ser,pack.params.sender,t.toString()));
             NIL.XDB.add_time(pack.params.sender,'join',1);
             tmie[pack.params.sender] = new Date();
             break;

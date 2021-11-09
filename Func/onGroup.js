@@ -7,7 +7,17 @@ NIL.FUNC.qq_ongroup_main = function(e){
                 NIL.SERVERS[i].sendCMD('list',NIL.TOOL.GUID());
             }
             break;
+        case "开服":
+            if(NIL.ADMIN.indexOf(e.sender.user_id)==-1){
+                e.reply(NIL.LANG.get('MEMBER_NOT_ADMIN'));
+                return;
+            }
+            break;
         case "/cmd":
+            if(NIL.ADMIN.indexOf(e.sender.user_id)==-1){
+                e.reply(NIL.LANG.get('MEMBER_NOT_ADMIN'));
+                return;
+            }
             if(Object.keys(NIL.SERVERS).length == 1){
                 for(i in NIL.SERVERS){
                     NIL.SERVERS[i].sendCMD(e.raw_message.substr(5));

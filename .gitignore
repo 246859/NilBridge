@@ -1,8 +1,6 @@
-Data/bot.json
-Data/^[0-9]*$/
+Data/
 token
 Data/playerdata.xdb
-
 # Logs
 logs
 *.log

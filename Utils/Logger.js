@@ -2,11 +2,11 @@ const {Signale} = require('signale');
 var sd = require('silly-datetime');
 
 const options = {
-  disabled: false,
-  interactive: false,
+  //disabled: false,
+  //interactive: false,
   scope: sd.format(new Date(), 'YYYY-MM-DD HH:mm:ss') + " NilBridge",
   //secrets: [],
-  stream: process.stdout,
+  //stream: process.stdout,
   types: {
     info:{
         color : 'green' ,

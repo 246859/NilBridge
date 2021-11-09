@@ -41,6 +41,22 @@ NIL.TOOL.GetSendTextPack = function(k,iv,text){
     return NIL.TOOL.GetEncryptPack(k,iv,JSON.stringify(p))
 }
 
+/** 
+* 开启服务器
+* @param k 加密密匙
+* @param iv 加密偏移量
+*/
+NIL.TOOL.GetStartPack = function(k,iv){
+    var p = {
+        type : "pack",
+        action : "startrequest",
+        params : {
+            id : NIL.TOOL.GUID()
+        }
+    }
+    return NIL.TOOL.GetEncryptPack(k,iv,JSON.stringify(p))
+}
+
 NIL.TOOL.GetEncryptPack = function(k,iv,pack){
     var p = {
         type : "encrypted",

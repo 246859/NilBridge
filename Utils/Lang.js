@@ -57,7 +57,15 @@ NIL.LANG.get = function(g){
 }
 
 function init(){
-    let input = fs.createReadStream('./Data/.lang')
+    const newpath = './Data/.lang';
+    const oldpath = './core/.lang';
+    try{
+        fs.statSync(newpath);
+    }catch{
+        NIL.Logger.info('[LANG]','.lang 文件不存在，自动创建...');
+        fs.copyFileSync(oldpath,newpath);
+    }
+    let input = fs.createReadStream(newpath)
     const rl = readline.createInterface({
       input: input
     });
