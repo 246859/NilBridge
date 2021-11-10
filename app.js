@@ -20,6 +20,7 @@ NIL.FUNC = {
 	}
 }
 NIL.TOOL = {};
+NIL.TOOL.COMPUTER = {};
 NIL.CLASS = {};
 NIL.LANG = {};
 NIL.XDB = {};
@@ -55,20 +56,23 @@ require('./Utils/Message');
 require('./Utils/express');
 //加载插件
 require('./Utils/initPlugins');
+//http库
+require("./Utils/Network");
+//正则表达式模块
+require("./Utils/Regex");
+// computer
+require('./Utils/ComputerInfo');
 
-
-for(i in NIL.SERVERS){
-    NIL.Logger.info('[NIL]','loading server: '+i+`(${NIL.SERVERS[i].url})`);
-}
 NIL.Logger.info("[NIL]",`成功加载${Object.keys(NIL.SERVERS).length}个服务器`);
 
 NIL.Logger.info("[OICQ]","准备登录QQ....");
 NIL.Logger.info('[OICQ]',"扫码后回车即可登录");
 
 //登录QQ
-require('./Utils/Bot')
+//require('./Utils/Bot')
 
 NIL.FUNC.plload();
+
 
 //控制台stop退出
 process.stdin.on('data',(input)=>{

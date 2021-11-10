@@ -70,3 +70,5 @@ NIL.CLASS.ws_ser = class{
         }
     }
 }
+
+NIL.Logger.info('[WSC]','websocket模块加载完毕');

@@ -1,7 +1,6 @@
 function group_main(e){
     if(e.group_id != NIL.bot.config.group.main)return;
     const pt = NIL.TOOL.GetPlainText(e).split(' ');
-    console.log(pt[0]);
     switch(pt[0]){
         case "查服":
             for(i in NIL.SERVERS){

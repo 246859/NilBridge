@@ -74,3 +74,6 @@ NIL.XDB.save = function(){
     NIL.Logger.info("[XDB]",'saving...')
     fs.writeFileSync('./Data/playerdata.xdb',NIL.TOOL.AESencrypt(dbkey.k,dbkey.iv,JSON.stringify(db)));
 }
+
+
+NIL.Logger.info('[XDB]','玩家数据加载成功');

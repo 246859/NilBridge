@@ -33,3 +33,5 @@ NIL.FUNC.clear = function(){
     NIL.FUNC.PLUGINS.GROUP = [];
     NIL.FUNC.PLUGINS.WS = [];
 }
+
+NIL.Logger.info('[PLUGINS]','插件模块载入成功');

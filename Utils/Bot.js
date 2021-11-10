@@ -88,6 +88,10 @@ NIL.bot.sendGroupMessage = function(group,msg){
     if(client.status != 11) {NIL.Logger.warn('[OICQ]','插件在QQ未登录时调用了API'); return;}//直接返回防止oicq崩溃
     client.pickGroup(group).sendMsg(msg);
 }
+NIL.bot.GetGroupMember = function(g,q){
+  if(client.status != 11) {NIL.Logger.warn('[OICQ]','插件在QQ未登录时调用了API'); return;}
+  return client.pickMember(g,q);
+}
 
 NIL.bot.sendFriendMessage = function(friend,msg){
     if(client.status != 11){ NIL.Logger.warn('[OICQ]','插件在QQ未登录时调用了API'); return;}
