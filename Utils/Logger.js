@@ -1,10 +1,6 @@
 const {Signale} = require('signale');
 var sd = require('silly-datetime');
 
-// 禁用console.log
-console.log = (e)=>{
-  NIL.Logger.warn('[NIL]','console.log 已被禁用，请用NIL.Logger输出');
-};
 
 const options = {
   //disabled: false,

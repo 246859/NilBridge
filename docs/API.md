@@ -8,8 +8,6 @@ NilBridge提供了插件加载功能使得您可以自行编写插件来完善Ni
 
 您可以监听websocket收信或者监听群聊
 
-请注意，console.log已被全局禁用，有需要请使用`NIL.Logger`模块
-
 将编写好的js文件放入`plugins`来加载
 
 ***

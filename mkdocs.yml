@@ -4,7 +4,7 @@ theme:
     name: material
     language: zh
     logo: img/favicon.svg
-    favicon: img/favicon.png
+    favicon: img/logo.png
     features:
         - search.highlight
         - seach.suggest
@@ -31,3 +31,4 @@ nav:
   - 常见问题: QandA.md
   - 更新日志: update.md
   - 开源协议: LIC.md
+  - 支持项目: auspice.md

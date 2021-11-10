@@ -1,6 +1,7 @@
 function group_main(e){
     if(e.group_id != NIL.bot.config.group.main)return;
-    const pt = e.raw_message.split(' ');
+    const pt = NIL.TOOL.GetPlainText(e).split(' ');
+    console.log(pt[0]);
     switch(pt[0]){
         case "查服":
             for(i in NIL.SERVERS){
@@ -42,15 +43,17 @@ function group_main(e){
                 e.reply(NIL.LANG.get('COMMAND_OVERLOAD_NOTFIND'),true);
                 return;
             }
+            if(NIL.XDB.wl_exsis(e.sender.user_id)){
+                e.reply(NIL.LANG.get('MEMBER_ALREADY_BIND'),true);
+                break;
+            }
             var xbox = e.raw_message.substr(6);
             if(NIL.XDB.xboxid_exsis(xbox)){
-                e.reply(NIL.LANG.get('XBOXID_ALREADY_BIND'),true);
+                e.reply(NIL.LANG.get('MEMBER_ALREADY_IN_WHITELIST'),true);
                 break;
             }
             NIL.XDB.wl_add(e.sender.user_id,xbox);
             e.reply(NIL.LANG.get('MEMBER_BIND_SUCCESS',xbox),true);
-            NIL.TOOL.RunCMDAll(`whitelist add "${xbox}"`);
-            e.reply(NIL.LANG.get('XBOXID_ADD_TO_SERVER_SUCCESS'),true);
             break;
         case "/unbind":
             if(NIL.XDB.wl_exsis(e.sender.user_id)==false){
@@ -58,11 +61,48 @@ function group_main(e){
                 break;
             }
             var xbox = NIL.XDB.get_xboxid(e.sender.user_id);
-            console.log(xbox);
+            //console.log(xbox);
             NIL.XDB.wl_remove(e.sender.user_id);
             e.reply(NIL.LANG.get('MEMBER_UNBIND'),true);
             NIL.TOOL.RunCMDAll(`whitelist remove "${xbox}"`);
             e.reply(NIL.LANG.get('REMOVE_WL_TO_SERVER',e.sender.user_id,xbox));
+            break;
+        case "wl+":
+            if(NIL.ADMIN.indexOf(e.sender.user_id)==-1){
+                e.reply(NIL.LANG.get('MEMBER_NOT_ADMIN'));
+                return;
+            }
+            var at = NIL.TOOL.getAt(e);
+            if(e.length!=0){
+                at.forEach(element => {
+                    if(NIL.XDB.wl_exsis(element)){
+                        var xbox = NIL.XDB.get_xboxid(element);
+                        NIL.TOOL.RunCMDAll(`whitelist add "${xbox}"`);
+                        e.reply(NIL.LANG.get('ADD_WL_TO_SERVER',element,xbox));
+                    }else{
+                        e.reply(NIL.LANG.get('MEMBER_NOT_BIND_WHEN_REMOVE',element));
+                    }
+
+                });
+            }
+            break;
+        case "wl-":
+            if(NIL.ADMIN.indexOf(e.sender.user_id)==-1){
+                e.reply(NIL.LANG.get('MEMBER_NOT_ADMIN'));
+                return;
+            }
+            var at = NIL.TOOL.getAt(e);
+            if(e.length!=0){
+                at.forEach(element => {
+                    if(!NIL.XDB.wl_exsis(element)){
+                        e.reply(NIL.LANG.get('MEMBER_NOT_BIND_WHEN_REMOVE',element));
+                    }else{
+                        e.reply(NIL.LANG.get('REMOVE_WL_TO_SERVER',element,NIL.XDB.get_xboxid(element)));
+                        NIL.TOOL.RunCMDAll(`whitelist remove "${NIL.XDB.get_xboxid(element)}"`);
+                        NIL.XDB.wl_remove(element);
+                    }
+                });
+            }
             break;
     }
 }

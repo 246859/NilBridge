@@ -12,8 +12,7 @@ NIL.SERVERS = {};
 NIL.FUNC = {
 	NATIVE : {
 		WS :[],
-		GROUP:[],
-		LEFT : []
+		GROUP:[]
 	},
 	PLUGINS : {
 		WS :[],
@@ -76,6 +75,8 @@ process.stdin.on('data',(input)=>{
 	//console.log(input.toString('hex'));
 	switch(input.toString('hex')){
 		case "73746f700d0a":
+			NIL.Logger.info('[NIL]','正在保存数据..');
+			NIL.XDB.save();
 			NIL.Logger.info('[NIL]','准备退出');
 			setTimeout(function(){process.exit(0)},1000)
 			break;

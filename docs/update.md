@@ -7,11 +7,24 @@
 
 如果使用中遇到任何问题或发现错误，可反馈到此:
 
-2959435045@qq.com
+QQ群聊：[【NilBridge | 公测++】](https://jq.qq.com/?_wv=1027&k=CgyVAMM8)
 
 Github：[点击此处](https://github.com/xbridgex/nilbridge)
 
-minebbs：[点击此处](https://www.minebbs.com/resources/nilbridge-bds.3107/)
+Minebbs：[点击此处](https://www.minebbs.com/resources/nilbridge-bds.3107/)
+
+***
+
+
+## v1.0.8
+`2021-11-10`
+
+ - 完善`wl-`，`wl+`命令
+
+## v1.0.7v2
+`2021-11-9`
+
+ - 紧急修复一个不能扫码登录的错误
 
 ***
 

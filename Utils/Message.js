@@ -8,8 +8,9 @@ NIL.TOOL.getAt = function(e){
     var at = [];
     for(i in e.message){
         switch(e.message[i].type){
-            case "'at":
-                at.pop(e.message[i].qq);
+            case "at":
+                at.push(e.message[i].qq);
+                break;
         }
     }
     return at;
@@ -30,6 +31,18 @@ NIL.TOOL.GetFormatText = function(e){
             case"image":
                 rt+= NIL.LANG.get("MESSAGE_IMAGE");
                 break;
+            case"text":
+                rt+= e.message[i].text;
+                break;
+        }
+    }
+    return rt;
+}
+
+NIL.TOOL.GetPlainText = function(e){
+    var rt = '';
+    for(i in e.message){
+        switch(e.message[i].type){
             case"text":
                 rt+= e.message[i].text;
                 break;
