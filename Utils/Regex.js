@@ -6,7 +6,7 @@ try{
     fs.statSync('Data/regex.json');
     regexs = JSON.parse(fs.readFileSync('Data/regex.json','utf8'));
 }catch(err){
-    NIL.Logger.warn('[REGEX]','seeor when load file :'+err);
+    NIL.Logger.warn('[REGEX]','error when load file :'+err);
 }
 
 function buildString(str,reg){
@@ -19,6 +19,7 @@ function buildString(str,reg){
 }
 
 function format(str,member,e){
+    if(NIL.XDB.wl_exsis(member)) str = str.replace('%MEMBER_XBOXID%',NIL.XDB.get_xboxid(member));
     if(str.indexOf('MEMBER')!=-1){
         const mb = NIL.bot.GetGroupMember(e.group_id,member);
         str = str.replace("%MEMBER_QQ_NICK%",mb.card);
@@ -69,8 +70,6 @@ function Regex(e){
         });
     });
 }
-
-
 NIL.FUNC.NATIVE.GROUP.push(Regex);
 
 NIL.Logger.info("[REGEX]",'正则表达式模块加载完毕');
