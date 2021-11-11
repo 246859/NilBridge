@@ -128,7 +128,7 @@ NIL.SERVER
 |获取qq所绑定的xboxid，没有绑定返回undefined|NIL.XDB.get_xboxid(qq)|
 |获取xboxid对应的qq号，没有绑定返回0|NIL.XDB.get_qq(xboxid)|
 |查询xboxid是否被绑定|NIL.XDB.xboxid_exsis(xboxid)|
-|获取qq号对应的[玩家数据对象](playerdataItem)|NIL.XDB.get_player(qq)|
+|获取qq号对应的[玩家数据对象](#playerdataItem)|NIL.XDB.get_player(qq)|
 |修改玩家数据|NIL.XDB.add_time(xboxid,mode,time)|
 
 
