@@ -7,6 +7,7 @@ try{
     regexs = JSON.parse(fs.readFileSync('Data/regex.json','utf8'));
 }catch(err){
     NIL.Logger.warn('[REGEX]','error when load file :'+err);
+    fs.writeFileSync('Data/regex.json','[]','utf8');
 }
 
 function buildString(str,reg){
@@ -43,7 +44,7 @@ function format(str,member,e){
 function Regex(e){
     const raw = NIL.TOOL.GetPlainText(e);
     regexs.forEach(re => {
-        if(!NIL.bot.config.admin.indexOf(e.sender.user_id) && re.permission == 1)return;
+        if(!NIL.CONFIG.ADMIN.indexOf(e.sender.user_id) && re.permission == 1)return;
         re.out.forEach(it=>{
             var cs = raw.match(re.Regex);
             if(cs==null) return;

@@ -7,15 +7,23 @@
 
 如果使用中遇到任何问题或发现错误，可反馈到此:
 
-QQ群聊：[【NilBridge | 公测++】](https://jq.qq.com/?_wv=1027&k=CgyVAMM8)
-
 Github：[点击此处](https://github.com/xbridgex/nilbridge)
 
 Minebbs：[点击此处](https://www.minebbs.com/resources/nilbridge-bds.3107/)
 
 ***
 
-## v1.0.9
+## v1.1.3
+`2021-11-10`
+
+ - 群员绑定xboxid后会自动修改群名，可以在`property.js`中关闭
+
+## v1.1.2
+`2021-11-10`
+
+ - 修改配置文件为根目录的`property.js`
+
+## v1.1.0
 `2021-11-10`
 
  - 添加正则表达式功能

@@ -7,8 +7,9 @@ var app = express();
 const ROOT = path.join(__dirname,'..','site');//path.join(__dirname),'..','public')
 app.use(express.static(ROOT));
 
-
-app.listen(3000, () => {
+if(NIL.CONFIG.LOACL_WEBSITE){
+  app.listen(NIL.CONFIG.LOACL_WEBSITE_PORT, () => {
     NIL.Logger.info('[WEB]',`App listening at port 3000`);
     NIL.Logger.info('[WEB]',`在浏览器中访问http://127.0.0.1:3000即可查看文档`);
 });
+}

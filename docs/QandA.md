@@ -28,7 +28,7 @@
 
 ## 如何使用密码登录？
 ```
-在Data文件夹创建password.txt在其中写入您的密码，并把bot.json中protocol设置为1
+把property.js中NIL.CONFIG.LOGIN_WITH_QRCODE设为false并且NIL.CONFIG.LOGIN_PROTOCOL设置为1
 
 首次登录建议使用扫码，因为使用密码可能需要处理滑动验证码，目前非手机环境的滑动无法通过
 

@@ -1,5 +1,5 @@
 function group_main(e){
-    if(e.group_id != NIL.bot.config.group.main)return;
+    if(e.group_id != NIL.CONFIG.GROUP_MAIN)return;
     const pt = NIL.TOOL.GetPlainText(e).split(' ');
     switch(pt[0]){
         case "查服":
@@ -8,13 +8,13 @@ function group_main(e){
             }
             break;
         case "开服":
-            if(NIL.ADMIN.indexOf(e.sender.user_id)==-1){
+            if(NIL.CONFIG.ADMIN.indexOf(e.sender.user_id)==-1){
                 e.reply(NIL.LANG.get('MEMBER_NOT_ADMIN'));
                 return;
             }
             break;
         case "/cmd":
-            if(NIL.ADMIN.indexOf(e.sender.user_id)==-1){
+            if(NIL.CONFIG.ADMIN.indexOf(e.sender.user_id)==-1){
                 e.reply(NIL.LANG.get('MEMBER_NOT_ADMIN'));
                 return;
             }
@@ -52,6 +52,7 @@ function group_main(e){
                 break;
             }
             NIL.XDB.wl_add(e.sender.user_id,xbox);
+            if(NIL.CONFIG.AUTO_RENAME_AFTER_BIND) e.member.setCard(xbox);
             e.reply(NIL.LANG.get('MEMBER_BIND_SUCCESS',xbox),true);
             break;
         case "/unbind":
@@ -67,7 +68,7 @@ function group_main(e){
             e.reply(NIL.LANG.get('REMOVE_WL_TO_SERVER',e.sender.user_id,xbox));
             break;
         case "wl+":
-            if(NIL.ADMIN.indexOf(e.sender.user_id)==-1){
+            if(NIL.CONFIG.ADMIN.indexOf(e.sender.user_id)==-1){
                 e.reply(NIL.LANG.get('MEMBER_NOT_ADMIN'));
                 return;
             }
@@ -86,7 +87,7 @@ function group_main(e){
             }
             break;
         case "wl-":
-            if(NIL.ADMIN.indexOf(e.sender.user_id)==-1){
+            if(NIL.CONFIG.ADMIN.indexOf(e.sender.user_id)==-1){
                 e.reply(NIL.LANG.get('MEMBER_NOT_ADMIN'));
                 return;
             }
@@ -107,7 +108,7 @@ function group_main(e){
 }
 
 function group_chat(e){
-    if(e.group_id != NIL.bot.config.group.chat)return;
+    if(e.group_id != NIL.CONFIG.GROUP_CHAT)return;
     //NIL.Logger.debug(NIL.TOOL.GetFormatText(e));
     NIL.TOOL.sendTextAll(NIL.LANG.get('GROUP_MEMBER_CHAT',e.sender.nickname,NIL.TOOL.GetFormatText(e)));
 }

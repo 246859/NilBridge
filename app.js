@@ -1,11 +1,29 @@
 "use strict" //oicq需要开启严格模式
 
 const fs = require('fs');
+
 //全局变量 NIL
 global.NIL = {};
 
+//logo输出
+const LOGO_FILE_PATH = './core/logo.txt';
+let data = fs.readFileSync(LOGO_FILE_PATH, 'utf-8');
+console.log(data);
+//日志模块
+require("./Utils/Logger");
+NIL.Logger.info('[NIL]','正在启动...');
 
-NIL.ROOTPATH = __dirname;
+
+const cfgoldpath = './core/property.js';
+const cfgnewpath = './property.js';
+try{
+    fs.statSync(cfgnewpath);
+	}catch{
+    NIL.Logger.info('[NIL]','property.js文件不存在，自动创建...');
+    fs.copyFileSync(cfgoldpath,cfgnewpath);
+}
+NIL.CONFIG = {};
+require('./property');
 NIL.PLUGINS = [];
 NIL.ADMIN = [];
 NIL.SERVERS = {};
@@ -25,13 +43,7 @@ NIL.CLASS = {};
 NIL.LANG = {};
 NIL.XDB = {};
 
-//logo输出
-const LOGO_FILE_PATH = './core/logo.txt';
-let data = fs.readFileSync(LOGO_FILE_PATH, 'utf-8');
-console.log(data);
-//日志模块
-require("./Utils/Logger");
-NIL.Logger.info('[NIL]','正在启动...');
+
 //AES模块
 require("./Utils/AES");
 //MD5模块
@@ -53,7 +65,7 @@ require("./Utils/XDB");
 //解析消息函数
 require('./Utils/Message');
 //文档服务器
-require('./Utils/express');
+if(NIL.CONFIG.LOACL_WEBSITE) require('./Utils/express');
 //加载插件
 require('./Utils/initPlugins');
 //http库
@@ -69,7 +81,7 @@ NIL.Logger.info("[OICQ]","准备登录QQ....");
 NIL.Logger.info('[OICQ]',"扫码后回车即可登录");
 
 //登录QQ
-//require('./Utils/Bot')
+require('./Utils/Bot')
 
 NIL.FUNC.plload();
 

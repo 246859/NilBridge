@@ -1,1 +1,0 @@
-NIL.Logger.info('[example]','爷被加载辣');
