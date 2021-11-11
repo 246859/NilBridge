@@ -13,67 +13,55 @@
 ## Api Reference
 
  - [日志模块](#Logger)
+ - [OICQ模块](#bot)
+ - [工具模块](#TOOL)
+ - [语言文件模块](#LANG)
+ - [服务器列表](#SERVER)
 
 ### Logger
 
-``` js
-// 输出一条级别为调试的日志
-NIL.Logger.debug('str')
+|Method|Description|
+|:-:|:-:|
+|输出一条级别为调试的日志|NIL.Logger.debug(str)|
+|输出一条级别为信息的日志|NIL.Logger.info(str)|
+|输出一条级别为警告的日志|NIL.Logger.warn(str)|
+|输出一条级别为错误的日志|NIL.Logger.error(str)|
 
-// 输出一条级别为信息的日志
-NIL.Logger.info('str')
 
-// 输出一条级别为警告的日志
-NIL.Logger.warn('str')
+### OICQ
 
-// 输出一条级别为错误的日志
-NIL.Logger.error('str')
-```
+|Method|Description|
+|:-:|:-:|
+|发送群消息|NIL.bot.sendGroupMessage(group_id,msg)|
+|发送好友信息|NIL.bot.sendFriendMessage(friend_id,msg)|
+|直接发送消息到主群|NIL.bot.sendMainMessage(msg)|
+|直接发送消息到聊天群|NIL.bot.sendChatMessage(msg)|
+|获取一个[群员对象](https://github.com/takayama-lily/oicq#class-member)|NIL.bot.getGroupMmeber(group_id,member_id)|
 
-### OICQ封装
 
-``` js
-// 发送群消息
-NIL.bot.sendGroupMessage(group_id,'哼哼 啊啊啊啊啊啊')
 
-// 发送好友信息
-NIL.bot.sendFriendMessage(friend_id,'哼哼 啊啊啊啊啊啊啊')
+### TOOL
 
-// 直接发送消息到主群
-NIL.bot.sendMainMessage('哼哼 啊啊啊啊啊啊')
+|Method|Description|
+|:-:|:-:|
+|AES解密|NIL.TOOL.AESdecrypt(key,iv,str)|
+|AES加密|NIL.TOOL.AESdecrypt(key,iv,str)|
+|MD5加密|NIL.TOOL.MD5(str)|
+|获取[消息对象](https://github.com/takayama-lily/oicq#class-message)中所有被At的QQ号，返回数组|NIL.TOOL.getAt(e)|
+|获取[消息对象](https://github.com/takayama-lily/oicq#class-message)中的纯文本，返回字符串|NIL.TOOL.getPlanText(e)|
+|将[消息对象](https://github.com/takayama-lily/oicq#class-message)中的纯文本根据lang文件解析|NIL.TOOL.GetFormatText(e)|
 
-// 直接发送消息到聊天群
-NIL.bot.sendChatMessage('哼哼 啊啊啊啊啊啊啊啊啊啊')
 
-```
+### Lang
 
-### 工具模块封装
+|Method|Description|
+|:-:|:-:|
+|添加lang字符串|NIL.LAN.set(k,v)|
+|获取格式化lang字符串，可以接受多个参数|NIL.LANG.get(str[,str1,str2...strn])|
 
-``` js
-
-// AES解密
-NIL.TOOL.AESdecrypt('key','iv','str')
-
-// AES加密
-NIL.TOOL.AESdecrypt('key','iv','str')
-
-// MD5加密
-NIL.TOOL.MD5('str')
-
-// 获取消息对象中所有被At的QQ号，返回数组
-NIL.TOOL.getAt('消息对象，来自OICQ')
-```
-
-### Lang模块
+使用方法如下
 
 ``` js
-
-// 添加lang字符串
-NIL.LAN.set('k','v')
-
-// 格式化lang字符串，可以接受多个参数
-NIL.LANG.get('str'[,'str1','str2'...'strn'])
-
 NIL.LANG.get('SERVER') //返回“SERVER”，因为lang文件没有这一项
 
 NIL.LANG.get('SERVER_STOP') //返回“服务器{0}已关闭”
@@ -81,59 +69,29 @@ NIL.LANG.get('SERVER_STOP') //返回“服务器{0}已关闭”
 NIL.LANG.get('SERVER_STOP','生存') //返回“服务器生存已关闭”
 
 NIL.LANG.get('MEMBER_LEFT','steve','生存') //返回“steve 离开了 生存”
-
 ```
 
-### 服务器列表
+### SERVER
 
-``` js
 
-// 是一个object对象，里面有所有服务器
+是一个object对象，里面有所有服务器
+
 NIL.SERVER 
 
-/*
-每个服务器对象都有这些元素
+|Property|Description|
+|:-:|:-:|
+|url|ws的地址|
+|key|AES加密密匙|
+|iv|AES加密偏移量|
+|name|所连接的服务器名称|
+|ws|[ws对象](#ws对象)|
 
-url ws的地址
+#### ws对象
 
-key AES加密密匙
-
-iv AES加密偏移量
-
-name 所连接的服务器名称
-
-ws ws对象
-
-每个ws对象有如下方法
-
-sendCMD(cmd,id)  向服务器执行命令
-
-sendText(text) 向服务器发送文本
-
-
-*/
-```
-
-### Q群配置文件
-``` js
-
-// 一个object对象
-NIL.bot.config
-
-/*
-含有如下元素
-
-botqq 登录的QQ号
-
-protocol 客户端协议
-
-group.main 主群群号
-
-group.chat 聊天群群号
-
-*/
-
-```
+|Method|Description|
+|:-:|:-:|
+|sendCMD(cmd,id)|向服务器执行命令|
+|sendText(text)|向服务器发送文本|
 
 ### 玩家数据
 
