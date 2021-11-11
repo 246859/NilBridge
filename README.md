@@ -12,6 +12,8 @@
 
 ## Api Reference
 
+将您编写的js插件放入`plugins`文件夹即可被加载
+
  - [日志模块](#Logger)
  - [OICQ模块](#bot)
  - [工具模块](#TOOL)
@@ -60,8 +62,8 @@ NIL.FUNC.PLUGINS.GROUP.push(func)
 
 |Method|Description|
 |:-:|:-:|
-|AES解密|NIL.TOOL.AESdecrypt(key,iv,str)|
-|AES加密|NIL.TOOL.AESdecrypt(key,iv,str)|
+|[AES解密](https://github.com/XBridgeX/NilBridge/blob/main/Utils/AES.js#L12)|NIL.TOOL.AESdecrypt(key,iv,str)|
+|[AES加密](https://github.com/XBridgeX/NilBridge/blob/main/Utils/AES.js#L27)|NIL.TOOL.AESdecrypt(key,iv,str)|
 |MD5加密|NIL.TOOL.MD5(str)|
 |获取[消息对象](https://github.com/takayama-lily/oicq#class-message)中所有被At的QQ号，返回数组|NIL.TOOL.getAt(e)|
 |获取[消息对象](https://github.com/takayama-lily/oicq#class-message)中的纯文本，返回字符串|NIL.TOOL.getPlanText(e)|
