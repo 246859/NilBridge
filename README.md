@@ -66,14 +66,21 @@ NIL.FUNC.PLUGINS.GROUP.push(func)
 |获取[消息对象](https://github.com/takayama-lily/oicq#class-message)中所有被At的QQ号，返回数组|NIL.TOOL.getAt(e)|
 |获取[消息对象](https://github.com/takayama-lily/oicq#class-message)中的纯文本，返回字符串|NIL.TOOL.getPlanText(e)|
 |将[消息对象](https://github.com/takayama-lily/oicq#class-message)中的纯文本根据lang文件解析|NIL.TOOL.GetFormatText(e)|
-
+|阻塞式HTTPGET请求，返回请求到的数据|NIL.TOOL.HttpGetSync(url)|
+|异步HTTPGET请求，`callback`函数原型为function (err,data),请求成功`err`为null|NIL.TOOL.HttpGet(url,callback)|
 
 ### Lang
+
+NilBridge启动时会加载`Data/.lang`文件
+
+会把语言文件转换为`k`,`v`键值对
+
+lang文件中以`#`开头的行会认定为注释
 
 |Method|Description|
 |:-:|:-:|
 |添加lang字符串|NIL.LAN.set(k,v)|
-|获取格式化lang字符串，可以接受多个参数|NIL.LANG.get(str[,str1,str2...strn])|
+|获取格式化lang字符串|NIL.LANG.get(str[,str1,str2...strn])|
 
 使用方法如下
 
@@ -128,11 +135,11 @@ NIL.SERVER
 |获取qq所绑定的xboxid，没有绑定返回undefined|NIL.XDB.get_xboxid(qq)|
 |获取xboxid对应的qq号，没有绑定返回0|NIL.XDB.get_qq(xboxid)|
 |查询xboxid是否被绑定|NIL.XDB.xboxid_exsis(xboxid)|
-|获取qq号对应的[玩家数据对象](#playerdataItem)|NIL.XDB.get_player(qq)|
+|获取qq号对应的[玩家数据对象](#玩家数据对象)|NIL.XDB.get_player(qq)|
 |修改玩家数据|NIL.XDB.add_time(xboxid,mode,time)|
 
 
-#### playerdataItem
+#### 玩家数据对象
 |Property|Description|
 |:-:|:-:|
 |xboxid|玩家绑定的xboxid|

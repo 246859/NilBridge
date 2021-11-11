@@ -48,7 +48,7 @@ client.on("message.group", e => {
 
 
 client.on('notice.group.decrease',e=>{
-  if(e.group_id == NIL.bot.config.group.main){
+  if(e.group_id == NIL.CONFIG.GROUP_MAIN){
     //MEMBER_LEFT_GROUP
     if(NIL.XDB.wl_exsis(e.user_id)){
       NIL.bot.sendMainMessage(NIL.LANG.get('MEMBER_LEFT_GROUP'))
