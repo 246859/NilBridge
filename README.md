@@ -81,7 +81,7 @@ lang文件中以`#`开头的行会认定为注释
 
 |Method|Description|
 |:-:|:-:|
-|添加lang字符串|NIL.LAN.set(k,v)|
+|添加lang字符串|NIL.LANG.set(k,v)|
 |获取格式化lang字符串|NIL.LANG.get(str[,str1,str2...strn])|
 
 使用方法如下
@@ -126,6 +126,8 @@ NIL.SERVER
 |:-:|:-:|
 |sendCMD(cmd,id)|向服务器执行命令|
 |sendText(text)|向服务器发送文本|
+|sendStart()|请求开启服务器|
+||sendStop()|请求关闭服务器|
 
 ### XDB
 

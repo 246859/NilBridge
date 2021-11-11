@@ -69,6 +69,14 @@ NIL.CLASS.ws_ser = class{
             NIL.Logger.error('[WS]',`[${this.name}]`,err);
         }
     }
+    sendStop(){
+        try{
+            NIL.Logger.info('[WS]',`[${this.name}]`,'发信 -> startrequest');
+            this.con.send(NIL.TOOL.GetStopPack(this.k,this.iv));
+        }catch(err){
+            NIL.Logger.error('[WS]',`[${this.name}]`,err);
+        }
+    }
 }
 
 NIL.Logger.info('[WSC]','websocket模块加载完毕');

@@ -21,7 +21,6 @@ String.prototype.format = function(args) {
 	if (arguments.length < 1) {
 		return result;
 	}
-
 	var data = arguments; // 如果模板参数是数组
 	if (arguments.length == 1 && typeof (args) == "object") {
 		// 如果模板参数是对象

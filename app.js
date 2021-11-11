@@ -66,14 +66,14 @@ require("./Utils/XDB");
 require('./Utils/Message');
 //文档服务器
 if(NIL.CONFIG.LOACL_WEBSITE) require('./Utils/express');
-//加载插件
-require('./Utils/initPlugins');
 //http库
 require("./Utils/Network");
 //正则表达式模块
 require("./Utils/Regex");
 // computer
 require('./Utils/ComputerInfo');
+//加载插件
+require('./Utils/initPlugins');
 
 NIL.Logger.info("[NIL]",`成功加载${Object.keys(NIL.SERVERS).length}个服务器`);
 
