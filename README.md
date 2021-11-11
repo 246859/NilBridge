@@ -17,6 +17,22 @@
  - [工具模块](#TOOL)
  - [语言文件模块](#LANG)
  - [服务器列表](#SERVER)
+ - [玩家数据模块](#XDB)
+
+ ### LISTEN
+
+``` js
+
+// 注册函数监听websocket收包
+// 传入的数据是解密过的数据包
+// 函数原型 func(ser,pack) ser为服务器名称,pack为解密过的数据包
+NIL.FUNC.PLUGINS.WS.push(func)
+
+// 注册函数监听群聊
+// 函数原型 func(e) e为消息对象，来自OICQ
+NIL.FUNC.PLUGINS.GROUP.push(func)
+
+```
 
 ### Logger
 
@@ -73,10 +89,19 @@ NIL.LANG.get('MEMBER_LEFT','steve','生存') //返回“steve 离开了 生存�
 
 ### SERVER
 
-
-是一个object对象，里面有所有服务器
-
 NIL.SERVER 
+
+直观一点表示就是
+``` json
+{
+    "服务器A":{
+        "url":"ws://xxxxxx:xxx/",
+        "key":"QGU127IQBSD729HW",
+        "iv":"ANSJ3842JSO28DN3",
+        "name":"服务器A",
+    }
+}
+```
 
 |Property|Description|
 |:-:|:-:|
@@ -93,61 +118,32 @@ NIL.SERVER
 |sendCMD(cmd,id)|向服务器执行命令|
 |sendText(text)|向服务器发送文本|
 
-### 玩家数据
+### XDB
+
+|Method|Description|
+|:-:|:-:|
+|查询该qq号是否绑定xbooxid|NIL.XDB.wl_exsis(qq)|
+|添加玩家信息到玩家数据|NIL.XDB.wl_add(qq,xboxid)|
+|移除玩家数据|NIL.XDB.wl_remove(qq)|
+|获取qq所绑定的xboxid，没有绑定返回undefined|NIL.XDB.get_xboxid(qq)|
+|获取xboxid对应的qq号，没有绑定返回0|NIL.XDB.get_qq(xboxid)|
+|查询xboxid是否被绑定|NIL.XDB.xboxid_exsis(xboxid)|
+|获取qq号对应的[玩家数据对象](playerdataItem)|NIL.XDB.get_player(qq)|
+|修改玩家数据|NIL.XDB.add_time(xboxid,mode,time)|
+
+
+#### playerdataItem
+|Property|Description|
+|:-:|:-:|
+|xboxid|玩家绑定的xboxid|
+|count.join|加入服务器次数|
+|count.duration|游玩时间，单位分钟|
+
+修改玩家数据示例
 
 ``` js
-
-// 返回该qq号是否绑定xbooxid
-NIL.XDB.wl_exsis(qq)
-
-// 添加玩家信息到数据库
-NIL.XDB.wl_add(qq,xboxid)
-
-// 移除玩家数据
-NIL.XDB.wl_remove(qq)
-
-// 获取qq所绑定的xboxid，没有绑定返回undefined
-NIL.XDB.get_xboxid(qq)
-
-// 获取xboxid对应的qq号，没有绑定返回0
-NIL.XDB.get_qq(xboxid)
-
-// 查询xboxid是否被绑定
-NIL.XDB.xboxid_exsis(xboxid)
-
-// 获取qq号对应的玩家数据
-NIL.XDB.get_player(qq)
-
-/*
-玩家数据对象有如下元素
-
-xboxid 玩家绑定的xboxid
-
-count.join 加入服务器次数
-
-count.duration 游玩时间，单位分钟
-
-*/
-
-// 修改玩家数据
-NIL.XDB.add_time(xboxid,mode,time)
-
 NIL.XDB.add_time('steve','join',1) //xboxid为steve的玩家加入服务器次数加一
 
 NIL.XDB.add_time('steve','time',1) //xboxid为steve的玩家游玩时间加一分钟
-
 ```
 
-### 设置处理函数
-``` js
-
-// 注册函数监听websocket收包
-// 传入的数据是解密过的数据包
-// 函数原型 func(ser,pack) ser为服务器名称,pack为解密过的数据包
-NIL.FUNC.PLUGINS.WS.push(func)
-
-// 注册函数监听群聊
-// 函数原型 func(e) e为消息对象，来自OICQ
-NIL.FUNC.PLUGINS.GROUP.push(func)
-
-````
