@@ -10,6 +10,20 @@
 
  - 如果有能力可以提供PR，欢迎支持开源项目
 
+## websocket服务端支持
+
+注意：下面两个ws服务端装一个就可以
+
+### [Nillauncher](https://www.minebbs.com/resources/nillauncher-ui-bds.2994/)
+
+使用启动器开启服务器可以做到通过websocket开启、关闭服务器
+
+不过需要额外的[插件](https://www.minebbs.com/resources/chat.2923/)获取聊天信息
+
+### [LLWebsocketR](https://www.minebbs.com/resources/c-bdx-liteloader-bdswebsocketapi.2150/)
+
+使用BDS原生插件可以更好的获取服务器返回信息
+
 ## Api Reference
 
 将您编写的js插件放入`plugins`文件夹即可被加载
