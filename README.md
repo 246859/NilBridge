@@ -15,7 +15,7 @@
 将您编写的js插件放入`plugins`文件夹即可被加载
 
  - [日志模块](#Logger)
- - [OICQ模块](#bot)
+ - [OICQ模块](#OICQ)
  - [工具模块](#TOOL)
  - [语言文件模块](#LANG)
  - [服务器列表](#SERVER)
