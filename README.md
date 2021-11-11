@@ -14,6 +14,8 @@
 
 将您编写的js插件放入`plugins`文件夹即可被加载
 
+如果您没有头绪，可以查看[示例插件](https://github.com/XBridgeX/NilBridge/blob/main/plugins/CheckMe.js)
+
  - [日志模块](#Logger)
  - [OICQ模块](#OICQ)
  - [工具模块](#TOOL)
