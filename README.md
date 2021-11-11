@@ -127,7 +127,7 @@ NIL.SERVER
 |sendCMD(cmd,id)|向服务器执行命令|
 |sendText(text)|向服务器发送文本|
 |sendStart()|请求开启服务器|
-||sendStop()|请求关闭服务器|
+|sendStop()|请求关闭服务器|
 
 ### XDB
 
