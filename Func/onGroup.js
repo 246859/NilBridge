@@ -7,12 +7,6 @@ function group_main(e){
                 NIL.SERVERS[i].sendCMD('list',NIL.TOOL.GUID());
             }
             break;
-        case "开服":
-            if(NIL.CONFIG.ADMIN.indexOf(e.sender.user_id)==-1){
-                e.reply(NIL.LANG.get('MEMBER_NOT_ADMIN'));
-                return;
-            }
-            break;
         case "/cmd":
             if(NIL.CONFIG.ADMIN.indexOf(e.sender.user_id)==-1){
                 e.reply(NIL.LANG.get('MEMBER_NOT_ADMIN'));

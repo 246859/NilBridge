@@ -70,7 +70,7 @@ NIL.FUNC.ws_onpack_item=function (ser,str){
             break;
         default:
             NIL.Logger.warn('[WS]',`接收到未知的数据包:${pack.cause}`);
-            NIL.bot.sendMainMessage(`从服务器[${ser}]接收到未知的数据包：${pack.cause}`)
+            //NIL.bot.sendMainMessage(`从服务器[${ser}]接收到未知的数据包：${pack.cause}`)
             break;
     }
 }
