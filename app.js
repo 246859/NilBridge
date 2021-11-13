@@ -101,6 +101,9 @@ process.stdin.on('data',(input)=>{
 			NIL.FUNC.clear();
 			NIL.FUNC.plload();
 			break;
+		case "72656772656c6f61640d0a":
+			NIL.FUNC.REGEX_LOAD();
+			break;
 	}
 });
 

@@ -1,4 +1,3 @@
-
 function checkme(e){
     if(e.group_id != NIL.CONFIG.GROUP_MAIN)return;
     if(e.raw_message == '我的统计'){

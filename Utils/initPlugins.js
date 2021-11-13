@@ -1,5 +1,18 @@
 const fs = require('fs');
 
+/*
+let components = []
+const files = fs.readdirSync('./plugins')
+files.forEach(function (item, index) {
+    let stat = fs.lstatSync("./plugins/" + item)
+    if (stat.isDirectory() === true) { 
+      components.push(item)
+    }
+})
+
+console.log(components);
+*/
+
 NIL.FUNC.plload = function(){
     fs.readdirSync('./plugins/').forEach(p=>{
         try{

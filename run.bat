@@ -1,3 +1,3 @@
-chcp 655001
+chcp 65001
 node.exe app.js
 pause

@@ -18,7 +18,6 @@ if(NIL.CONFIG.QQ == 114514){
 const client = createClient(NIL.CONFIG.QQ,conf);
 
 if(!NIL.CONFIG.LOGIN_WITH_QRCODE){
-  console.log(pwd);
   client.on('system.login.slider',function(e){
     process.stdin.once("data", (e) => {
       this.submitSlider(e.toString('utf8'));
