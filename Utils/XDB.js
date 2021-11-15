@@ -54,6 +54,10 @@ NIL.XDB.get_player = function(qq){
         return db[qq];
 }
 
+NIL.XDB.get_all = function(){
+    return db;
+}
+
 NIL.XDB.add_time = function(pl,mode,t){
     if(NIL.XDB.xboxid_exsis(pl)==false)return;
     switch(mode){
@@ -71,9 +75,9 @@ NIL.XDB.add_time = function(pl,mode,t){
 }
 
 NIL.XDB.save = function(){
-    NIL.Logger.info("[XDB]",'saving...')
+    NIL.Logger.info("XDB",'saving...')
     fs.writeFileSync('./Data/playerdata.xdb',NIL.TOOL.AESencrypt(dbkey.k,dbkey.iv,JSON.stringify(db)));
 }
 
 
-NIL.Logger.info('[XDB]','玩家数据加载成功');
+NIL.Logger.info('XDB','玩家数据加载成功');

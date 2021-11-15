@@ -24,9 +24,9 @@ NIL.TOOL.HttpGetSync = function(url){
         var res = requestSync('GET', url);
         return res.getBody('utf8');
     }catch(err){
-        NIL.Logger.warn('[NETWORK]',err);
+        NIL.Logger.warn('NETWORK',err);
         return null;
     }
 }
 
-NIL.Logger.info('[NTWORK]','网络请求模块加载完毕');
+NIL.Logger.info('NTWORK','网络请求模块加载完毕');

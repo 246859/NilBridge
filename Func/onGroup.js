@@ -37,7 +37,7 @@ function group_main(e){
                 return;
             }
             if(NIL.XDB.wl_exsis(e.sender.user_id)){
-                e.reply(NIL.LANG.get('MEMBER_ALREADY_BIND'),true);
+                e.reply(NIL.LANG.get('MEMBER_ALREADY_IN_WHITELIST',NIL.XDB.get_xboxid(e.sender.user_id)),true);
                 break;
             }
             var xbox = e.raw_message.substr(6);

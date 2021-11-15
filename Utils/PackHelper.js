@@ -95,4 +95,4 @@ NIL.TOOL.sendTextAll = function(cmd){
     }
 }
 
-NIL.Logger.info('[PH]','PACKHELPER 加载完成');
+NIL.Logger.info('PH','PACKHELPER 加载完成');

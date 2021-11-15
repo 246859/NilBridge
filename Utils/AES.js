@@ -36,4 +36,4 @@ NIL.TOOL.AESencrypt = function (key, iv, data) {
 
 
 
-NIL.Logger.info('[AES]','模块加载成功');
+NIL.Logger.info('AES','模块加载成功');

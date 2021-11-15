@@ -40,13 +40,6 @@ NIL.CONFIG.LOGIN_PROTOCOL = 3
 // 如果使用扫码登录可以忽略此项
 NIL.CONFIG.PASSWORD = '114514'
 
-// 是否启用本地文档服务器
-NIL.CONFIG.LOACL_WEBSITE = true
-
-// 文档服务器监听端口
-// 开启只会您可以访问127.0.0.1:端口 来查看文档
-NIL.CONFIG.LOACL_WEBSITE_PORT = 3000
-
 // 全局管理员，可以在群聊中执行命令
 // 示例 [1111] 或者 [111,222]
 NIL.CONFIG.ADMIN = []

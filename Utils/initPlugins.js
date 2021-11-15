@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+const path = require('path');
 /*
 let components = []
 const files = fs.readdirSync('./plugins')
@@ -16,10 +16,14 @@ console.log(components);
 NIL.FUNC.plload = function(){
     fs.readdirSync('./plugins/').forEach(p=>{
         try{
-            require('../plugins/'+p);
-            NIL.PLUGINS.push('../plugins/'+p);
+            var pt = path.join(__dirname,'../plugins',p);
+            if(fs.statSync(pt).isFile()){ 
+                NIL.Logger.info('PLoader','loading '+p);
+                require(pt);
+                NIL.PLUGINS.push(pt);
+            }
         }catch(err){
-            NIL.Logger.error('[PLoader]',err);
+            NIL.Logger.error('PLoader',err);
         }
     });
 }
@@ -47,4 +51,4 @@ NIL.FUNC.clear = function(){
     NIL.FUNC.PLUGINS.WS = [];
 }
 
-NIL.Logger.info('[PLUGINS]','插件模块载入成功');
+NIL.Logger.info('PLUGINS','插件模块载入成功');

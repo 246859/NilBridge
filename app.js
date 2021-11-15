@@ -11,7 +11,7 @@ let data = fs.readFileSync(LOGO_FILE_PATH, 'utf-8');
 console.log(data);
 //日志模块
 require("./Utils/Logger");
-NIL.Logger.info('[NIL]','正在启动...');
+NIL.Logger.info('NIL','正在启动...');
 
 
 const cfgoldpath = './core/property.js';
@@ -19,7 +19,7 @@ const cfgnewpath = './property.js';
 try{
     fs.statSync(cfgnewpath);
 	}catch{
-    NIL.Logger.info('[NIL]','property.js文件不存在，自动创建...');
+    NIL.Logger.info('NIL','property.js文件不存在，自动创建...');
     fs.copyFileSync(cfgoldpath,cfgnewpath);
 }
 NIL.CONFIG = {};
@@ -64,8 +64,6 @@ require('./Utils/PackHelper');
 require("./Utils/XDB");
 //解析消息函数
 require('./Utils/Message');
-//文档服务器
-if(NIL.CONFIG.LOACL_WEBSITE) require('./Utils/express');
 //http库
 require("./Utils/Network");
 //正则表达式模块
@@ -74,11 +72,6 @@ require("./Utils/Regex");
 require('./Utils/ComputerInfo');
 //加载插件
 require('./Utils/initPlugins');
-
-NIL.Logger.info("[NIL]",`成功加载${Object.keys(NIL.SERVERS).length}个服务器`);
-
-NIL.Logger.info("[OICQ]","准备登录QQ....");
-NIL.Logger.info('[OICQ]',"扫码后回车即可登录");
 
 //登录QQ
 require('./Utils/Bot')
@@ -91,13 +84,13 @@ process.stdin.on('data',(input)=>{
 	//console.log(input.toString('hex'));
 	switch(input.toString('hex')){
 		case "73746f700d0a":
-			NIL.Logger.info('[NIL]','正在保存数据..');
+			NIL.Logger.info('NIL','正在保存数据..');
 			NIL.XDB.save();
-			NIL.Logger.info('[NIL]','准备退出');
+			NIL.Logger.info('NIL','准备退出');
 			setTimeout(function(){process.exit(0)},1000)
 			break;
 		case "706c72656c6f61640d0a":
-			NIL.Logger.info('[NIL]','正在重载插件');
+			NIL.Logger.info('NIL','正在重载插件');
 			NIL.FUNC.clear();
 			NIL.FUNC.plload();
 			break;

@@ -2,7 +2,7 @@
 const { createClient } = require("oicq");
 
 NIL.bot = {};
-
+NIL.Logger.info("OICQ","准备登录QQ....");
 const conf = {//机器人内部配置
     platform: NIL.CONFIG.LOGIN_PROTOCOL,//QQ登录协议。1:安卓手机 2:安卓平板 3:安卓手表 4:MacOS 5:iPad
     kickoff: false,
@@ -25,7 +25,7 @@ if(!NIL.CONFIG.LOGIN_WITH_QRCODE){
   }).login(NIL.CONFIG.PASSWORD);
 }
 
-client.on("system.online", () => NIL.Logger.info('[OICQ]',"登录成功!"));//登录成功提示
+client.on("system.online", () => NIL.Logger.info('OICQ',"登录成功!"));//登录成功提示
 
 //#region 
 client.on("message.group", e => {
@@ -33,14 +33,14 @@ client.on("message.group", e => {
     try{
       element(e);
     }catch(err){
-      NIL.Logger.error('[OICQ]','[NATIVE]',err);
+      NIL.Logger.error('OICQ',err);
     }
   });
   NIL.FUNC.PLUGINS.GROUP.forEach(element=>{
     try{
       element(e);
     }catch(err){
-      NIL.Logger.error('[OICQ]','[PLUGINS]',err);
+      NIL.Logger.error('OICQ',err);
     }
   });
 });
@@ -60,6 +60,7 @@ client.on('notice.group.decrease',e=>{
 if(NIL.CONFIG.LOGIN_WITH_QRCODE){
   client.on("system.login.qrcode", function (e) {
     //扫码后按回车登录
+    NIL.Logger.info('OICQ',"扫码后回车即可登录");
     process.stdin.once("data", (e) => {
       this.login();
     })
@@ -68,17 +69,19 @@ if(NIL.CONFIG.LOGIN_WITH_QRCODE){
 
 
 NIL.bot.sendGroupMessage = function(group,msg){
-    if(client.status != 11) {NIL.Logger.warn('[OICQ]','插件在QQ未登录时调用了API'); return;}//直接返回防止oicq崩溃
-    client.pickGroup(group).sendMsg(msg);
+  if(client.status != 11) {NIL.Logger.warn('OICQ','插件在QQ未登录时调用了API'); return;}//直接返回防止oicq崩溃
+  if(msg=="#") return;
+  if(group == undefined || msg == undefined){NIL.Logger.error('OICQ','数据为空！！！'); return;}
+  client.pickGroup(group).sendMsg(msg);
 }
 NIL.bot.GetGroupMember = function(g,q){
-  if(client.status != 11) {NIL.Logger.warn('[OICQ]','插件在QQ未登录时调用了API'); return;}
+  if(client.status != 11) {NIL.Logger.warn('OICQ','插件在QQ未登录时调用了API'); return;}
   return client.pickMember(g,q);
 }
-
 NIL.bot.sendFriendMessage = function(friend,msg){
-    if(client.status != 11){ NIL.Logger.warn('[OICQ]','插件在QQ未登录时调用了API'); return;}
-    client.pickFriend(friend).sendMsg(msg);
+  if(client.status != 11){ NIL.Logger.warn('OICQ','插件在QQ未登录时调用了API'); return;}
+  if(friend == undefined || msg == undefined){NIL.Logger.error('OICQ','数据为空！！！'); return;}
+  client.pickFriend(friend).sendMsg(msg);
 }
 
 NIL.bot.sendMainMessage = function(msg){
@@ -87,4 +90,13 @@ NIL.bot.sendMainMessage = function(msg){
 
 NIL.bot.sendChatMessage = function(msg){
   NIL.bot.sendGroupMessage(NIL.CONFIG.GROUP_CHAT,msg);
+}
+
+NIL.bot.getGroupList = function(){
+  if(client.status != 11) {NIL.Logger.warn('OICQ','插件在QQ未登录时调用了API'); return;}
+  return client.getGroupList();
+}
+NIL.bot.getFriendList = function(){
+  if(client.status != 11) {NIL.Logger.warn('OICQ','插件在QQ未登录时调用了API'); return;}
+  return client.getFriendList();
 }

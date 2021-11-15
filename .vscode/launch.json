@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\Utils\\ComputerInfo.js"
+            "program": "${workspaceFolder}\\Utils\\Logger.js"
         }
     ]
 }

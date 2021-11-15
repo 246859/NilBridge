@@ -1,33 +1,19 @@
-const {Signale} = require('signale');
 var sd = require('silly-datetime');
+const signale = require('signale');
+const colors = require('colors');
 
+NIL.Logger = {};
 
-const options = {
-  //disabled: false,
-  //interactive: false,
-  scope: sd.format(new Date(), 'YYYY-MM-DD HH:mm:ss') + " NilBridge",
-  //secrets: [],
-  //stream: process.stdout,
-  types: {
-    info:{
-        color : 'green' ,
-        label : 'INFO'
-    },
-    warn: {
-      color: 'yellow',
-      label: 'WARN'
-    },
-    error: {
-      color: 'red',
-      label: 'ERROR'
-    },
-    debug:{
-        color : 'magenta',
-        label : 'DEBUG'
-    }
-  }
+NIL.Logger.info = (moudle,msg)=>{
+  console.log(sd.format(new Date(), '[YYYY-MM-DD HH:mm:ss]'),'['+'INFO'.green+']',`[${moudle}]`,msg);
 };
 
-NIL.Logger = new Signale(options);
+NIL.Logger.error = (moudle,msg)=>{
+  console.log(sd.format(new Date(), '[YYYY-MM-DD HH:mm:ss]'),'['+'ERROR'.red+']',`moudle ${moudle} throw a Error!!!`);
+  signale.fatal(new Error(msg));
+};
 
-NIL.Logger.info('[LOGGER]','模块加载成功');
+NIL.Logger.warn = (moudle,msg)=>{
+  console.log(sd.format(new Date(), '[YYYY-MM-DD HH:mm:ss]'),'['+'WARN'.yellow+']',`[${moudle}]`,msg);
+};
+NIL.Logger.info('LOGGER','模块加载成功');

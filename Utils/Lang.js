@@ -1,7 +1,7 @@
 const readline = require('readline');
 const fs = require('fs');
 
-const lang = {};
+var lang = {};
 
 /**
  * 替换所有匹配exp的字符串为指定字符串
@@ -61,10 +61,10 @@ function init(){
     try{
         fs.statSync(newpath);
     }catch{
-        NIL.Logger.info('[LANG]','.lang 文件不存在，自动创建...');
+        NIL.Logger.info('LANG','.lang 文件不存在，自动创建...');
         fs.copyFileSync(oldpath,newpath);
     }
-    let input = fs.createReadStream(newpath)
+    let input = fs.createReadStream(newpath,{encoding:"utf8"});
     const rl = readline.createInterface({
       input: input
     });
@@ -80,9 +80,9 @@ function init(){
       }
     });
     rl.on('close',()=>{
-        NIL.Logger.info("[LANG]",'Lang文件读取完毕');
+        NIL.Logger.info("LANG",'Lang文件读取完毕');
     });
 }
 
 init()
-NIL.Logger.info("[LANG]","LANG 模块加载成功")
+NIL.Logger.info("LANG","LANG 模块加载成功")

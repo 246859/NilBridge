@@ -7,7 +7,7 @@ NIL.FUNC.REGEX_LOAD = function(){
         fs.statSync('Data/regex.json');
         regexs = JSON.parse(fs.readFileSync('Data/regex.json','utf8'));
     }catch(err){
-        NIL.Logger.warn('[REGEX]','error when load file :'+err);
+        NIL.Logger.warn('REGEX','error when load file :'+err);
         fs.writeFileSync('Data/regex.json','[]','utf8');
     }
 }
@@ -52,7 +52,7 @@ function Regex(e){
             if(cs==null) return;
             var text = format(buildString(it.text,cs),e.sender.user_id,e);
             switch(it.type){
-                case "rucmdall":
+                case "runcmdall":
                     NIL.TOOL.RunCMDAll(text);
                     break;
                 case "group":
@@ -77,4 +77,4 @@ NIL.FUNC.NATIVE.GROUP.push(Regex);
 
 NIL.FUNC.REGEX_LOAD();
 
-NIL.Logger.info("[REGEX]",'正则表达式模块加载完毕');
+NIL.Logger.info("REGEX",'正则表达式模块加载完毕');
