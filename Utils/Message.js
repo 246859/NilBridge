@@ -26,7 +26,7 @@ NIL.TOOL.GetFormatText = function(e){
                     rt+=NIL.LANG.get("MESSAGE_AT_ALL");
                     continue;
                 }
-                rt+= NIL.LANG.get('MESSAGE_AT',e.message[i].qq);
+                rt+= NIL.LANG.get('MESSAGE_AT',NIL.XDB.wl_exsis(e.message[i].qq)?NIL.XDB.get_xboxid(e.message[i].qq):e.message[i].qq);
                 break;
             case"image":
                 rt+= NIL.LANG.get("MESSAGE_IMAGE");

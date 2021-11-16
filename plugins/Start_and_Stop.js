@@ -24,4 +24,19 @@ function start_and_stop(e){
     }
 }
 
-NIL.FUNC.PLUGINS.GROUP.push(start_and_stop);
+function log(msg) {
+    NIL.Logger.info('start_and_stop', msg);
+}
+
+function onStart(){
+    log('加载成功');
+    log('如果想正常使用本插件功能请用Nillauncher启动服务端');
+    NIL.FUNC.PLUGINS.GROUP.push(start_and_stop);
+}
+function onStop(){
+    log('插件已卸载');
+}
+module.exports = {
+    onStart,
+    onStop
+};

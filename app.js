@@ -74,7 +74,7 @@ require('./Utils/ComputerInfo');
 require('./Utils/initPlugins');
 
 //登录QQ
-require('./Utils/Bot')
+require('./Utils/Bot');
 
 NIL.FUNC.plload();
 
@@ -86,6 +86,8 @@ process.stdin.on('data',(input)=>{
 		case "73746f700d0a":
 			NIL.Logger.info('NIL','正在保存数据..');
 			NIL.XDB.save();
+			NIL.Logger.info('NIL','正在卸载插件..');
+			NIL.FUNC.clear();
 			NIL.Logger.info('NIL','准备退出');
 			setTimeout(function(){process.exit(0)},1000)
 			break;
@@ -95,6 +97,7 @@ process.stdin.on('data',(input)=>{
 			NIL.FUNC.plload();
 			break;
 		case "72656772656c6f61640d0a":
+			NIL.Logger.info('NIL','正在重载正则表达式文件..');
 			NIL.FUNC.REGEX_LOAD();
 			break;
 	}

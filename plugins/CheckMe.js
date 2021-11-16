@@ -10,6 +10,20 @@ function checkme(e){
         }
     }
 }
-NIL.FUNC.PLUGINS.GROUP.push(checkme);
-NIL.Logger.info('CHECKME','爷被加载辣');
-NIL.Logger.info('CHECKME','在主群中发送 "我的统计" 即可查看统计数据');
+
+
+
+function onStart(){
+    NIL.FUNC.PLUGINS.GROUP.push(checkme);
+    NIL.Logger.info('CHECKME','爷被加载辣');
+    NIL.Logger.info('CHECKME','在主群中发送 "我的统计" 即可查看统计数据');
+}
+
+function onStop(){
+    NIL.Logger.info('CHECKME','爷被卸载辣');
+}
+
+module.exports = {
+    onStart,
+    onStop
+};
