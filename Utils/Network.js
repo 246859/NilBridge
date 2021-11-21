@@ -3,7 +3,7 @@ const request = require('request');
   
 
 /** 
-* 阻塞式HTTP_GET请求
+* 非阻塞式HTTP_GET请求
 * @param url 请求地址
 * @param callback 回调函数
 */

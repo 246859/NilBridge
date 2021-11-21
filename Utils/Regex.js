@@ -2,10 +2,11 @@ const fs = require('fs');
 
 var regexs = [];
 
-NIL.FUNC.REGEX_LOAD = function(){
+function load(){
     try{
         fs.statSync('Data/regex.json');
         regexs = JSON.parse(fs.readFileSync('Data/regex.json','utf8'));
+        NIL.Logger.info('REGEX','正则表达式重载完成');
     }catch(err){
         NIL.Logger.warn('REGEX','error when load file :'+err);
         fs.writeFileSync('Data/regex.json','[]','utf8');
@@ -73,8 +74,11 @@ function Regex(e){
         });
     });
 }
+
 NIL.FUNC.NATIVE.GROUP.push(Regex);
 
-NIL.FUNC.REGEX_LOAD();
+module.exports = {
+    load
+};
 
 NIL.Logger.info("REGEX",'正则表达式模块加载完毕');

@@ -177,7 +177,7 @@ NIL.FUNC.PLUGINS.GROUP.push(net_on_group);
 
 
 log('init!');
-log('version 1.0.4');
+log('version 1.0.5');
 
 function onStart(){
     server.listen(cfg.port, '0.0.0.0', () => {

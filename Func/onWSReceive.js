@@ -42,7 +42,8 @@ function ws_onpack_item(ser,str){
             NIL.bot.sendMainMessage(NIL.LANG.get("SERVER_STOP",ser));
             break;
         case "runcmdfeedback":
-            NIL.bot.sendMainMessage(NIL.LANG.get("CMD_FEEDBACK",ser,pack.params.result));
+            if(NIL.RUNCMDID[pack.params.id])
+                NIL.bot.sendMainMessage(NIL.LANG.get("CMD_FEEDBACK",ser,pack.params.result));
             break;
         case "decodefailed":
             NIL.bot.sendMainMessage(NIL.LANG.get("WSPACK_RECEIVE_ERROR",ser,pack.params.msg));
@@ -68,7 +69,7 @@ function ws_onpack_item(ser,str){
             time[pack.params.sender] = new Date();
             break;
         default:
-            NIL.Logger.warn('WS',`接收到未知的数据包:${pack.cause}`);
+            //NIL.Logger.warn('WS',`接收到未知的数据包:${pack.cause}`);
             //NIL.bot.sendMainMessage(`从服务器[${ser}]接收到未知的数据包：${pack.cause}`)
             break;
     }

@@ -1,5 +1,7 @@
 {
 	"CheckMe.js": true,
-	"Nil-net-api.js": true,
+	"mbdie.js": true,
+	"motdpe.js": true,
+	"Nil-net-api.js": false,
 	"Start_and_Stop.js": true
 }

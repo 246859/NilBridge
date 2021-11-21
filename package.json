@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "colors": "^1.4.0",
-    "consola": "^2.15.3",
     "cpu-stat": "^2.0.1",
     "express": "^4.17.1",
+    "mcpe-ping": "^0.0.4",
     "md5-node": "^1.0.1",
     "oicq": "^2.1.4",
     "os-utils": "^0.0.14",

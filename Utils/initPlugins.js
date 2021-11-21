@@ -25,13 +25,17 @@ try{
 
 var pls = JSON.parse(fs.readFileSync('./plugins/config.json','utf8'));
 
-NIL.FUNC.plload = function(){
+
+/**
+ * 装载所有插件
+ */
+function load(){
     var cfg = {};
     fs.readdirSync('./plugins/').forEach(p=>{
         try{
             var pt = path.join(__dirname,'../plugins',p);
             if(fs.statSync(pt).isFile() &&  p != 'config.json'){ 
-                if(pls[p] == false) return;
+                if(pls[p] == false){ cfg[p]=false; return};
                 NIL.Logger.info('PLoader','loading '+p);
                 var part = require(pt);
                 mods.push(part);
@@ -61,7 +65,11 @@ Array.prototype.remove = function(val) {
     } 
  };
 
-NIL.FUNC.clear = function(){
+/**
+ * 卸载所有插件
+ * 并清空插件注册的监听函数
+ */
+function clear(){
     NIL.PLUGINS.forEach(pl=>{
         delete require.cache[require.resolve(pl)];
     });
@@ -77,5 +85,11 @@ NIL.FUNC.clear = function(){
     NIL.FUNC.PLUGINS.GROUP = [];
     NIL.FUNC.PLUGINS.WS = [];
 }
+
+
+module.exports = {
+    clear,
+    load
+};
 
 NIL.Logger.info('PLoader','插件模块载入成功');

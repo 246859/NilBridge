@@ -38,6 +38,7 @@ NIL.CONFIG.LOGIN_PROTOCOL = 3
 
 // 机器人登录密码
 // 如果使用扫码登录可以忽略此项
+// 可以直接填密码，也可以填写密码的md5值
 NIL.CONFIG.PASSWORD = '114514'
 
 // 全局管理员，可以在群聊中执行命令

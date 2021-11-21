@@ -2,7 +2,7 @@
 /**
  * 获取消息链中所有被At的QQ
  * @param e oicq消息对象
- * @returns 消息对象中所有被At的QQ号
+ * @returns 消息对象中所有被At的QQ号(数组)
  */
 NIL.TOOL.getAt = function(e){
     var at = [];
@@ -16,6 +16,11 @@ NIL.TOOL.getAt = function(e){
     return at;
 };
 
+/**
+ * 按照Lang文件格式化消息
+ * @param e oicq消息对象
+ * @returns 格式化后的信息字符串
+ */
 NIL.TOOL.GetFormatText = function(e){
     var rt = '';
     for(i in e.message){
@@ -36,9 +41,18 @@ NIL.TOOL.GetFormatText = function(e){
                 break;
         }
     }
-    return rt;
-}
+    if(rt != ''){
+        return rt;
+    }else{
+        return "#"
+    }
 
+}
+/**
+ * 获取消息中的纯文本
+ * @param e oicq消息对象
+ * @returns 纯文本
+ */
 NIL.TOOL.GetPlainText = function(e){
     var rt = '';
     for(i in e.message){

@@ -1,6 +1,12 @@
 "use strict" //oicq需要开启严格模式
 
 const fs = require('fs');
+const readline = require('readline');
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+})
+
 
 //全局变量 NIL
 global.NIL = {};
@@ -9,6 +15,7 @@ global.NIL = {};
 const LOGO_FILE_PATH = './core/logo.txt';
 let data = fs.readFileSync(LOGO_FILE_PATH, 'utf-8');
 console.log(data);
+
 //日志模块
 require("./Utils/Logger");
 NIL.Logger.info('NIL','正在启动...');
@@ -22,6 +29,7 @@ try{
     NIL.Logger.info('NIL','property.js文件不存在，自动创建...');
     fs.copyFileSync(cfgoldpath,cfgnewpath);
 }
+NIL.RUNCMDID = {};
 NIL.CONFIG = {};
 require('./property');
 NIL.PLUGINS = [];
@@ -67,38 +75,39 @@ require('./Utils/Message');
 //http库
 require("./Utils/Network");
 //正则表达式模块
-require("./Utils/Regex");
+const regex =  require("./Utils/Regex");
 // computer
 require('./Utils/ComputerInfo');
 //加载插件
-require('./Utils/initPlugins');
+// pm:PluginsManager
+const pm =  require('./Utils/initPlugins');
 
 //登录QQ
 require('./Utils/Bot');
 
-NIL.FUNC.plload();
-
+pm.load();
+regex.load();
 
 //控制台stop退出
-process.stdin.on('data',(input)=>{
-	//console.log(input.toString('hex'));
-	switch(input.toString('hex')){
-		case "73746f700d0a":
+rl.on('line',(input)=>{
+	switch(input){
+		case "stop":
 			NIL.Logger.info('NIL','正在保存数据..');
 			NIL.XDB.save();
 			NIL.Logger.info('NIL','正在卸载插件..');
-			NIL.FUNC.clear();
+			pm.clear();
 			NIL.Logger.info('NIL','准备退出');
+			NIL.bot.logout();
 			setTimeout(function(){process.exit(0)},1000)
 			break;
-		case "706c72656c6f61640d0a":
+		case "plreload":
 			NIL.Logger.info('NIL','正在重载插件');
-			NIL.FUNC.clear();
-			NIL.FUNC.plload();
+			pm.clear();
+			pm.load();
 			break;
-		case "72656772656c6f61640d0a":
+		case "regreload":
 			NIL.Logger.info('NIL','正在重载正则表达式文件..');
-			NIL.FUNC.REGEX_LOAD();
+			regex.load();
 			break;
 	}
 });

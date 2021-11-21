@@ -41,11 +41,19 @@ function isNullorEmpty(str){
     return false;
 }
 
+/**
+ * 设置语言文件
+ * @param k 键
+ * @param v 值
+ */
 NIL.LANG.set = function(k,v){
     lang[k] = v;
 }
 
-NIL.LANG.get = function(g){
+/**
+ * 获取格式化的语言字符串
+ */
+NIL.LANG.get = function(){
     if(lang[arguments[0]] == undefined) return arguments[0];
     var gs = {};
     for(i=1;i<arguments.length;i++){
@@ -54,7 +62,9 @@ NIL.LANG.get = function(g){
     if(Object.keys(gs).length ==0) return lang[arguments[0]];
     return lang[arguments[0]].format(gs);
 }
-
+/**
+ * 装载Lang文件
+ */
 function init(){
     const newpath = './Data/.lang';
     const oldpath = './core/.lang';

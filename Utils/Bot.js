@@ -18,11 +18,7 @@ if(NIL.CONFIG.QQ == 114514){
 const client = createClient(NIL.CONFIG.QQ,conf);
 
 if(!NIL.CONFIG.LOGIN_WITH_QRCODE){
-  client.on('system.login.slider',function(e){
-    process.stdin.once("data", (e) => {
-      this.submitSlider(e.toString('utf8'));
-    })
-  }).login(NIL.CONFIG.PASSWORD);
+  client.login(NIL.CONFIG.PASSWORD);
 }
 
 client.on("system.online", () => NIL.Logger.info('OICQ',"登录成功!"));//登录成功提示
@@ -67,36 +63,74 @@ if(NIL.CONFIG.LOGIN_WITH_QRCODE){
   }).login();
 }
 
-
+/**
+ * 发送群聊消息
+ * @param group 群号
+ * @param msg   要发送的消息
+ */
 NIL.bot.sendGroupMessage = function(group,msg){
   if(client.status != 11) {NIL.Logger.warn('OICQ','插件在QQ未登录时调用了API'); return;}//直接返回防止oicq崩溃
   if(msg=="#") return;
   if(group == undefined || msg == undefined){NIL.Logger.error('OICQ','数据为空！！！'); return;}
-  client.pickGroup(group).sendMsg(msg);
+  client.sendGroupMsg(group,msg);
 }
+
+/**
+ * 获取群员对象
+ * @param g 群号
+ * @param q 成员QQ号
+ * @returns 成员对象
+ */
 NIL.bot.GetGroupMember = function(g,q){
   if(client.status != 11) {NIL.Logger.warn('OICQ','插件在QQ未登录时调用了API'); return;}
   return client.pickMember(g,q);
 }
+/**
+ * 发送私聊消息
+ * @param friend 好友QQ号
+ * @param msg   要发送的消息
+ */
 NIL.bot.sendFriendMessage = function(friend,msg){
   if(client.status != 11){ NIL.Logger.warn('OICQ','插件在QQ未登录时调用了API'); return;}
   if(friend == undefined || msg == undefined){NIL.Logger.error('OICQ','数据为空！！！'); return;}
-  client.pickFriend(friend).sendMsg(msg);
+  client.sendPrivateMsg(friend,msg);
 }
 
+/**
+ * 发消息到主群(GROUP_MAIN)
+ * @param msg   要发送的消息
+ */
 NIL.bot.sendMainMessage = function(msg){
   NIL.bot.sendGroupMessage(NIL.CONFIG.GROUP_MAIN,msg);
 }
 
+/**
+ * 发消息到聊天群(GROUP_CHAT)
+ * @param msg   要发送的消息
+ */
 NIL.bot.sendChatMessage = function(msg){
   NIL.bot.sendGroupMessage(NIL.CONFIG.GROUP_CHAT,msg);
 }
 
+/**
+ * 获取群列表
+ */
 NIL.bot.getGroupList = function(){
   if(client.status != 11) {NIL.Logger.warn('OICQ','插件在QQ未登录时调用了API'); return;}
   return client.getGroupList();
 }
+
+/**
+ * 获取好友列表
+ */
 NIL.bot.getFriendList = function(){
   if(client.status != 11) {NIL.Logger.warn('OICQ','插件在QQ未登录时调用了API'); return;}
   return client.getFriendList();
+}
+
+/**
+ * 下线机器人
+ */
+NIL.bot.logout = function(){
+  client.logout(false);
 }

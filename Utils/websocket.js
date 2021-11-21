@@ -1,4 +1,5 @@
 const WebSocketClient = require('websocket').client;
+const helper = require("./PackHelper")
 
 NIL.CLASS.ws_ser = class{
     static k;
@@ -45,10 +46,10 @@ NIL.CLASS.ws_ser = class{
         });
         this.ws.connect(this.url);
     }
-    sendCMD(str,id){
+    sendCMD(str,id,ifback = true){
         try{
             NIL.Logger.info('WS',`[${this.name}]`+' 发信 -> runcmdrequest');
-            this.con.sendUTF(NIL.TOOL.GetRuncmdPack(this.k,this.iv,str,id));
+            this.con.sendUTF(helper.GetRuncmdPack(this.k,this.iv,str,id,ifback));
         }catch(err){
             NIL.Logger.error('WS',err);
         }
@@ -56,7 +57,7 @@ NIL.CLASS.ws_ser = class{
     sendText(str){
         try{
             NIL.Logger.info('WS',`[${this.name}]`+' 发信 -> sendtext');
-            this.con.sendUTF(NIL.TOOL.GetSendTextPack(this.k,this.iv,str));
+            this.con.sendUTF(helper.GetSendTextPack(this.k,this.iv,str));
         }catch(err){
             NIL.Logger.error('WS',err);
         }
@@ -64,7 +65,7 @@ NIL.CLASS.ws_ser = class{
     sendStart(){
         try{
             NIL.Logger.info('WS',`[${this.name}]`+' 发信 -> startrequest');
-            this.con.sendUTF(NIL.TOOL.GetStartPack(this.k,this.iv));
+            this.con.sendUTF(helper.GetStartPack(this.k,this.iv));
         }catch(err){
             NIL.Logger.error('WS',err);
         }
@@ -72,7 +73,7 @@ NIL.CLASS.ws_ser = class{
     sendStop(){
         try{
             NIL.Logger.info('WS',`[${this.name}]`+' 发信 -> startrequest');
-            this.con.sendUTF(NIL.TOOL.GetStopPack(this.k,this.iv));
+            this.con.sendUTF(helper.GetStopPack(this.k,this.iv));
         }catch(err){
             NIL.Logger.error('WS',err);
         }
