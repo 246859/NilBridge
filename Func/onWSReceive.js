@@ -42,8 +42,34 @@ function ws_onpack_item(ser,str){
             NIL.bot.sendMainMessage(NIL.LANG.get("SERVER_STOP",ser));
             break;
         case "runcmdfeedback":
-            if(NIL.RUNCMDID[pack.params.id])
+            if(!NIL.RUNCMDID[pack.params.id].ifback) return;
+                //[0m[37m[21:38:11 Info][Server] There are 0/10 players online:
+                //[0m[37m[21:38:11 Info][Server]
+            if(NIL.RUNCMDID[pack.params.id].cmd == 'list'){
+                var sult = /(.*)There are (.*)\/(.*) players online:(.*)/.exec(pack.params.result);
+                NIL.SERVERS[ser].setOnlineInt(sult[2]);
+                NIL.SERVERS[ser].setMax(sult[3]);
+                if(sult[2] == '0'){
+                    NIL.bot.sendMainMessage(NIL.LANG.get("CMD_FEEDBACK",ser,`There are ${sult[2]}/${sult[3]} players online:\n`));
+                }else{
+                    var sult2 = /(.*)There are (.*)\/(.*) players online:[\\r\n]+(.*)Server\] (.*)/.exec(pack.params.result);
+                    try{
+                        NIL.bot.sendMainMessage(NIL.LANG.get("CMD_FEEDBACK",ser,`There are ${sult2[2]}/${sult2[3]} players online:\n${sult2[5]}`));
+                    }catch{
+                        NIL.bot.sendMainMessage(pack.params.result);
+                    }
+                    
+                    if(sult2[5] != '')
+                        NIL.SERVERS[ser].setOnline(sult2[5].split(','));
+                    else
+                        NIL.SERVERS[ser].setOnline([]);
+                }
+            }else{
                 NIL.bot.sendMainMessage(NIL.LANG.get("CMD_FEEDBACK",ser,pack.params.result));
+            }
+            break;
+        case "plantext":
+            NIL.bot.sendMainMessage(pack.params.text);
             break;
         case "decodefailed":
             NIL.bot.sendMainMessage(NIL.LANG.get("WSPACK_RECEIVE_ERROR",ser,pack.params.msg));
@@ -55,18 +81,20 @@ function ws_onpack_item(ser,str){
         case "left":
             send2Other(ser,'left',pack.params.sender,'','');
             NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_LEFT',ser,pack.params.sender));
+            NIL.SERVERS[ser].removeOnline(pack.params.sender);
             if(time[pack.params.sender]!=undefined){
-               NIL.XDB.add_time(pack.params.sender,'time', Math.ceil((new Date() - time[pack.params.sender])/6000));
+               NIL.XDB.add_time(pack.params.sender,'time', Math.ceil((new Date() - time[pack.params.sender])/60*1000));
                delete time[pack.params.sender];
             }
             break;
         case "join":
             var t = 0;
-            if(NIL.XDB.xboxid_exsis(pack.params.sender)) t = NIL.XDB.get_player(NIL.XDB.get_qq(pack.params.sender)).count.join;
+            if(NIL.XDB.xboxid_exsits(pack.params.sender)) t = NIL.XDB.get_player(NIL.XDB.get_qq(pack.params.sender)).count.join;
             send2Other(ser,'join',pack.params.sender,'','');
             NIL.bot.sendChatMessage(NIL.LANG.get('MEMBER_JOIN',ser,pack.params.sender,(t+1).toString()));
             NIL.XDB.add_time(pack.params.sender,'join',1);
             time[pack.params.sender] = new Date();
+            NIL.SERVERS[ser].addOnline(pack.params.sender);
             break;
         default:
             //NIL.Logger.warn('WS',`接收到未知的数据包:${pack.cause}`);

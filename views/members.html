@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NilBridge</title>
+        <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link type="text/css" href="css/theme.css" rel="stylesheet">
+        <link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
+        <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600'
+            rel='stylesheet'>
+    </head>
+
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                    <i class="icon-reorder shaded"></i></a><a class="brand" href="#">NilBridge </a>
+                <div class="nav-collapse collapse navbar-inverse-collapse">
+                    <!--
+                        <ul class="nav nav-icons">
+                            <li class="active"><a href="#"><i class="icon-envelope"></i></a></li>
+                            <li><a href="#"><i class="icon-eye-open"></i></a></li>
+                            <li><a href="#"><i class="icon-bar-chart"></i></a></li>
+                        </ul>
+                        
+                        <form class="navbar-search pull-left input-append" action="?">
+                        <input type="text" class="span3">
+                        <button class="btn"  type="button">
+                            <i class="icon-search"></i>
+                        </button>
+                        </form>-->
+                    <ul class="nav pull-right">
+                         <!--
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Item No. 1</a></li>
+                                <li><a href="#">Don't Click</a></li>
+                                <li class="divider"></li>
+                                <li class="nav-header">Example Header</li>
+                                <li><a href="#">A Separated link</a></li>
+                            </ul>
+                        </li>-->
+                       <li><a href="http://nilbridge.site">帮助 </a></li>
+                        <!--<li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="images/user.png" class="nav-avatar" />
+                                <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Your Profile</a></li>
+                                <li><a href="#">Edit Profile</a></li>
+                                <li><a href="#">Account Settings</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Logout</a></li>
+                            </ul>-->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.nav-collapse -->
+            </div>
+        </div>
+        <!-- /navbar-inner -->
+    </div>
+    <!-- /navbar -->
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="span3">
+                    <div class="sidebar">
+                        <!--/.widget-nav -->
+                       <%- SIDEBAR%>
+                    </div>
+
+                    <!--/.sidebar-->
+                </div>
+                <!--/.span3-->
+                <div class="span9">
+                    <div class="content">
+                        <div class="alert">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>注意！</strong> 您正在使用测试版本的网页面板。此版本功能极少，更多功能会陆续添加。
+                        </div>
+                        <div class="btn-controls">
+                            <!--<div class="btn-box-row row-fluid">
+                                <a href="#" class="btn-box big span4"><i class=" icon-random"></i><b>65%</b>
+                                    <p class="text-muted">
+                                        Growth</p>
+                                </a><a href="#" class="btn-box big span4"><i class="icon-user"></i><b>15</b>
+                                    <p class="text-muted">
+                                        New Users</p>
+                                </a><a href="#" class="btn-box big span4"><i class="icon-money"></i><b>15,152</b>
+                                    <p class="text-muted">
+                                        Profit</p>
+                                </a>
+                            </div>-->
+                        </div>
+                        <!--/#btn-controls-->
+                        <%- WL_FROM%>
+                            <!--/.module-->
+            
+                                    <div class="module">
+                                        <div class="module-head">
+                                            <h3>添加用户</h3>
+                                        </div>
+                                        <div id="wait"></div>
+                                        <div class="module-body">
+                                                <form class="form-horizontal row-fluid" action="/api/wladd" method="post">
+                                                    <div class="control-group">
+                                                        <label class="control-label" for="basicinput">玩家QQ</label>
+                                                        <div class="controls">
+                                                            <input data-title="A tooltip for the input" id="QQ" type="text" placeholder="" data-original-title="" class="span8 tip">
+                                                        </div>
+                                                    </div>
+            
+                                                    <div class="control-group">
+                                                        <label class="control-label" for="basicinput">XBOX ID</label>
+                                                        <div class="controls">
+                                                            <input data-title="A tooltip for the input" type="text" id="xboxid" placeholder="" data-original-title="" class="span8 tip">
+                                                        </div>
+                                                    </div>
+                                                    <script>
+                                                        function push_wl(){
+                                                            var xmlhttp;
+											var xmlhttp;
+											if (window.XMLHttpRequest) {
+												//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+												xmlhttp = new XMLHttpRequest();
+											}
+											else {
+												// IE6, IE5 浏览器执行代码
+												xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+											}
+											xmlhttp.onreadystatechange = function () {
+												if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+													//alert(xmlhttp.responseText);
+													var j = JSON.parse(xmlhttp.responseText);
+													if (j.code == 200) {
+														document.getElementById("wait").innerHTML =`<div class="alert alert-success">
+										<button type="button" class="close" data-dismiss="alert">×</button>
+										${j.msg}
+									</div>`;
+													} else {
+														document.getElementById("wait").innerHTML = `<div class="alert alert-error" id="message">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							${j.msg}
+						</div>`
+													}
+												}
+											}
+											xmlhttp.open("POST", "/api/wladd", true);
+											xmlhttp.setRequestHeader("Content-type", "application/json");
+											xmlhttp.send(JSON.stringify({ QQ: document.getElementById("QQ").value,xboxid:document.getElementById("xboxid").value }));
+                                                        }
+                                                    </script>
+            
+                                                    <div class="control-group">
+                                                        <div class="controls">
+                                                            <hr>
+                                                            <a onclick="push_wl()" class="btn">提交</a>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </form>
+            
+                                    
+                                    
+                                </div><!--/.content-->
+                            </div><!--/.span9-->
+                    </div>
+                    <!--/.content-->
+                </div>
+                <!--/.span9-->
+            </div>
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.wrapper-->
+	<div class="footer">
+		<div class="container">
+
+
+			<b class="copyright">&copy; 2021 <a href="NilBridge.site"> NilBridge</a> - </b> All rights reserved.
+		</div>
+	</div>
+    <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
+    <script src="scripts/flot/jquery.flot.resize.js" type="text/javascript"></script>
+    <script src="scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="scripts/common.js" type="text/javascript"></script>
+
+</body>

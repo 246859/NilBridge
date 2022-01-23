@@ -1,5 +1,5 @@
 {
     "enable": true,
-    "port": 3390,
+    "port": 5888,
     "key": "114514"
 }

@@ -1,10 +1,6 @@
 {
-    "kwo": {
-		"url": "ws://127.0.0.1:9536/mc",
-		"pwd": "password"
-	},
-	"sc": {
-		"url": "ws://127.0.0.1:9331/mc",
-		"pwd": "password"
+	"生存": {
+		"url": "ws://127.0.0.1:8125/mcws",
+		"pwd": "passwd"
 	}
 }

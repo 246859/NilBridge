@@ -1,6 +1,7 @@
 const os = require('os');
 const osutils = require('os-utils');
 var cpuStat = require('cpu-stat');
+const { delStamp } = require('oicq/lib/internal');
 
 
 
@@ -9,6 +10,7 @@ setInterval(() => {
         if (err) {
              return;
        }
+       NIL.TOOL.COMPUTER.RAM_FREE = dealMem(os.freemem());
        NIL.TOOL.COMPUTER.CPU_PERCENT = parseFloat(percent).toFixed(2);
        NIL.TOOL.COMPUTER.RAM_USED = dealMem(os.totalmem()-os.freemem());
        NIL.TOOL.COMPUTER.RAM_PERCENT = (100*(osutils.totalmem()-osutils.freemem())/osutils.totalmem()).toFixed(2);

@@ -13,7 +13,10 @@ var cfg = JSON.parse(fs.readFileSync('./Data/servers.json','utf8'));
 for(i in cfg){
   NIL.Logger.info('INITS',`loading server ${i}`);
     var tmp = new NIL.CLASS.ws_ser(i,cfg[i].url,NIL.TOOL.MD5(cfg[i].pwd).substr(0,16),NIL.TOOL.MD5(cfg[i].pwd).substr(16,32));
+    tmp.setMax(10);
+    tmp.setOnline([]);
     NIL.SERVERS[i] = tmp;
+
 }
 
 NIL.Logger.info("INITS",`成功加载${Object.keys(NIL.SERVERS).length}个服务器`);

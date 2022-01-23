@@ -2,6 +2,7 @@
 	"CheckMe.js": true,
 	"mbdie.js": true,
 	"motdpe.js": true,
-	"Nil-net-api.js": false,
-	"Start_and_Stop.js": true
+	"Nil-net-api.js": true,
+	"Start_and_Stop.js": true,
+	"WLHelper.js": true
 }

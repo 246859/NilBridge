@@ -3,7 +3,7 @@ const path = require('path');
 
 var pls = {};
 
-var mods = [];
+var mods = {};
 /*
 let components = []
 const files = fs.readdirSync('./plugins')
@@ -29,7 +29,7 @@ var pls = JSON.parse(fs.readFileSync('./plugins/config.json','utf8'));
 /**
  * 装载所有插件
  */
-function load(){
+function loadAll(){
     var cfg = {};
     fs.readdirSync('./plugins/').forEach(p=>{
         try{
@@ -38,44 +38,44 @@ function load(){
                 if(pls[p] == false){ cfg[p]=false; return};
                 NIL.Logger.info('PLoader','loading '+p);
                 var part = require(pt);
-                mods.push(part);
+                mods[pt] = part;
                 part.onStart();
-                NIL.PLUGINS.push(pt);
+                NIL.PLUGINS[p] = pt;
                 cfg[p] = true
             }
         }catch(err){
-            NIL.Logger.error('PLoader',err);
+            NIL.Logger.error('PLoader -> '+p,err);
         }
     });
     fs.writeFileSync('./plugins/config.json',JSON.stringify(cfg,null,'\t'),'utf8');
 }
 
-
-Array.prototype.indexOf = function(val) { 
-    for (var i = 0; i < this.length; i++) { 
-        if (this[i] == val) 
-            return i; 
-    } 
-    return -1; 
-};
 Array.prototype.remove = function(val) { 
     var index = this.indexOf(val); 
     if (index > -1) { 
         this.splice(index, 1); 
     } 
- };
+};
+
+function unload(name){
+    var pt = path.join(__dirname,'../plugins',name);
+    try{mods[pt].onStop();}catch{}
+    delete NIL.PLUGINS[name];
+    delete mods[pt];
+    delete require.cache[require.resolve(pt)];
+}
 
 /**
  * 卸载所有插件
  * 并清空插件注册的监听函数
  */
 function clear(){
-    NIL.PLUGINS.forEach(pl=>{
-        delete require.cache[require.resolve(pl)];
+    Object.keys(NIL.PLUGINS).forEach(pl=>{
+        delete require.cache[require.resolve(NIL.PLUGINS[pl])];
     });
-    mods.forEach(p=>{
+    Object.keys(mods).forEach(p=>{
         try{
-            p.onStop();
+            mods[p].onStop();
         }catch(err){
             NIL.Logger.error('PLoader',err);
         }
@@ -89,7 +89,8 @@ function clear(){
 
 module.exports = {
     clear,
-    load
+    unload,
+    loadAll
 };
 
 NIL.Logger.info('PLoader','插件模块载入成功');

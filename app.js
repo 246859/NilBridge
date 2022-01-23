@@ -31,8 +31,9 @@ try{
 }
 NIL.RUNCMDID = {};
 NIL.CONFIG = {};
+NIL.CONFIG.PANEL = {};
 require('./property');
-NIL.PLUGINS = [];
+NIL.PLUGINS = {};
 NIL.ADMIN = [];
 NIL.SERVERS = {};
 NIL.FUNC = {
@@ -74,44 +75,25 @@ require("./Utils/XDB");
 require('./Utils/Message');
 //http库
 require("./Utils/Network");
-//正则表达式模块
-const regex =  require("./Utils/Regex");
 // computer
 require('./Utils/ComputerInfo');
 //加载插件
 // pm:PluginsManager
 const pm =  require('./Utils/initPlugins');
+// 加载原生命令
+require('./Utils/NBCMD');
+require('./Utils/express');
 
 //登录QQ
 require('./Utils/Bot');
 
-pm.load();
-regex.load();
+pm.loadAll();
 
 //控制台stop退出
 rl.on('line',(input)=>{
-	switch(input){
-		case "stop":
-			NIL.Logger.info('NIL','正在保存数据..');
-			NIL.XDB.save();
-			NIL.Logger.info('NIL','正在卸载插件..');
-			pm.clear();
-			NIL.Logger.info('NIL','准备退出');
-			NIL.bot.logout();
-			setTimeout(function(){process.exit(0)},1000)
-			break;
-		case "plreload":
-			NIL.Logger.info('NIL','正在重载插件');
-			pm.clear();
-			pm.load();
-			break;
-		case "regreload":
-			NIL.Logger.info('NIL','正在重载正则表达式文件..');
-			regex.load();
-			break;
-	}
+	NIL.NBCMD.run_console_cmd(input);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-	NIL.Logger.error('Unhandled Rejection:', reason)
+	NIL.Logger.error('NIL','Unhandled Rejection!!')
 });

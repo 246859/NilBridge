@@ -2,23 +2,24 @@ const WebSocketClient = require('websocket').client;
 const helper = require("./PackHelper")
 
 NIL.CLASS.ws_ser = class{
-    static k;
-    static iv;
-    static ws;
-    static name;
-    static con;
     constructor(name,url,key,iv){
         this.k = key;
         this.iv = iv;
         this.name = name;
         this.url =  url;
+        this._online = [];
+        this._maxplayer = 0;
+        this._onlineplayer = 0;
+        this._ifConnect = false;
         this.ws = new WebSocketClient();
         this.ws.on('connect',(con)=>{
             this.con = con;
+            this._ifConnect = true;
             NIL.Logger.info('WS',`[${this.name}]`+' 连接成功');
             con.on('close',(code,desc)=>{
                 NIL.Logger.warn('WS',`[${this.name}] 连接断开(${code})：${desc}`);
                 NIL.Logger.info('WS',`[${this.name}]`+' 准备5秒后自动重连');
+                this._ifConnect = false;
                 setTimeout(()=>{
                     this.ws.connect(this.url);
                 },5000);
@@ -29,7 +30,8 @@ NIL.CLASS.ws_ser = class{
                         //NIL.Logger.debug(str.utf8Data);
                         element(this.name,str.utf8Data);
                     }catch(err){
-                        NIL.Logger.error('WS',`[${this.name}]`+err);
+                        NIL.Logger.error('WS -> '+element.name,`[${this.name}]`);
+                        console.log(err);
                     }
                 });
             });
@@ -38,6 +40,7 @@ NIL.CLASS.ws_ser = class{
             });
         });
         this.ws.on('connectFailed',(err)=>{
+            this._ifConnect = true;
             NIL.Logger.warn('WS',`[${this.name}] 连接失败：${err}`);
             NIL.Logger.info('WS',`[${this.name}]`+' 准备5秒后自动重连');
             setTimeout(()=>{
@@ -46,10 +49,10 @@ NIL.CLASS.ws_ser = class{
         });
         this.ws.connect(this.url);
     }
-    sendCMD(str,id,ifback = true){
+    sendCMD(str,ifback = true){
         try{
             NIL.Logger.info('WS',`[${this.name}]`+' 发信 -> runcmdrequest');
-            this.con.sendUTF(helper.GetRuncmdPack(this.k,this.iv,str,id,ifback));
+            this.con.sendUTF(helper.GetRuncmdPack(this.k,this.iv,str,ifback));
         }catch(err){
             NIL.Logger.error('WS',err);
         }
@@ -77,6 +80,38 @@ NIL.CLASS.ws_ser = class{
         }catch(err){
             NIL.Logger.error('WS',err);
         }
+    }
+    getOnline(){
+        return this._online;
+    }
+    addOnline(pl){
+        if(this._online.indexOf(pl) == -1)
+            this._online.push(pl);
+    }
+    removeOnline(pl){
+        if(this._online.indexOf(pl) != -1){
+            this._online.splice(this._online.indexOf(pl),1);
+        }
+    }
+    setOnline(ol){
+        if(Array.isArray(ol))
+            this._online = ol;
+    }
+    setOnlineInt(num){
+        this._onlineplayer = Number(num);
+    }
+
+    setMax(i){
+        this._maxplayer = Number(i);
+    }
+    get maxplayer(){
+        return this._maxplayer;
+    }
+    get _onlineCount(){
+        return this._onlineplayer;
+    }
+    get _connected(){
+        return this._ifConnect;
     }
 }
 

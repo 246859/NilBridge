@@ -1,7 +1,7 @@
 function checkme(e){
     if(e.group_id != NIL.CONFIG.GROUP_MAIN)return;
     if(e.raw_message == '我的统计'){
-        if(NIL.XDB.wl_exsis(e.sender.user_id)){
+        if(NIL.XDB.wl_exsits(e.sender.user_id)){
             var pl = NIL.XDB.get_player(e.sender.user_id);
             var str = `[${pl.xboxid}]\n加入次数：${pl.count.join}\n游玩时间：${pl.count.duration}`;
             e.reply(str);

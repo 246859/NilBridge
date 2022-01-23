@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NilBridge</title>
+	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link type="text/css" href="css/theme.css" rel="stylesheet">
+	<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
+	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600'
+		rel='stylesheet'>
+</head>
+
+<body>
+
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+					<i class="icon-reorder shaded"></i>
+				</a>
+
+				<a class="brand" href="http://nilbridge.site">
+					NilBridge
+				</a>
+
+				<div class="nav-collapse collapse navbar-inverse-collapse">
+
+					<ul class="nav pull-right">
+
+
+
+						<li><a href="http://nilbridge.site/2021/11/11/QandA/QandA/">
+								忘记密码?
+							</a></li>
+					</ul>
+				</div><!-- /.nav-collapse -->
+			</div>
+		</div><!-- /navbar-inner -->
+	</div><!-- /navbar -->
+
+
+
+	<div class="wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="module module-login span4 offset4">
+					<form class="form-vertical">
+						<div class="module-head">
+							<h3>登入</h3>
+						</div>
+						<div id="wait"></div>
+						<div class="module-body">
+							<div class="control-group">
+								<div class="controls row-fluid" >
+									<input class="span12" name="user" type="text" id="inputEmail" placeholder="账户">
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls row-fluid" >
+									<input class="span12" name="pwd" type="password" id="inputPassword"
+										placeholder="密码">
+								</div>
+							</div>
+						</div>
+						<div class="module-foot">
+							<div class="control-group">
+								<div class="controls clearfix">
+									<script>
+										function loadXMLDoc() {
+											var xmlhttp;
+											var xmlhttp;
+											if (window.XMLHttpRequest) {
+												//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+												xmlhttp = new XMLHttpRequest();
+											}
+											else {
+												// IE6, IE5 浏览器执行代码
+												xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+											}
+											xmlhttp.onreadystatechange = function () {
+												if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+													//alert(xmlhttp.responseText);
+													var j = JSON.parse(xmlhttp.responseText);
+													if (j.code == 200) {
+														document.getElementById("wait").innerHTML =`<div class="alert alert-success">
+										<button type="button" class="close" data-dismiss="alert">×</button>
+										登入成功，准备跳转。
+									</div>`;setTimeout(()=>{
+										window.location = '/panel';
+									},1000);
+													} else {
+														document.getElementById("wait").innerHTML = `<div class="alert alert-error" id="message">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							账号或密码不正确！
+						</div>`
+													}
+												}
+											}
+											xmlhttp.open("POST", "/api/login", true);
+											xmlhttp.setRequestHeader("Content-type", "application/json");
+											xmlhttp.send(JSON.stringify({ user: document.getElementById("inputEmail").value,pwd:document.getElementById("inputPassword").value }));
+											//(xmlhttp.responseText);
+										}
+									</script>
+									<!--<button onclick="loadXMLDoc()" class="btn btn-primary">登入</button>-->
+									<a onclick="loadXMLDoc()" class="btn btn-primary">登陆</a>
+									<label class="checkbox">
+										<input type="checkbox"> 记住我
+									</label>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/.wrapper-->
+
+	<div class="footer">
+		<div class="container">
+
+
+			<b class="copyright">&copy; 2021 <a href="NilBridge.site"> NilBridge</a> - </b> All rights reserved.
+		</div>
+	</div>
+
+	</head>
+	<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+</body>

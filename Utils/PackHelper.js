@@ -19,7 +19,7 @@ function GUID() {
 */
 function GetRuncmdPack(k,iv,cmd,ifback){
     var id = GUID();
-    NIL.RUNCMDID[id] = ifback;
+    NIL.RUNCMDID[id] = {ifback,cmd};
     var p = {
         type : "pack",
         action : "runcmdrequest",
@@ -81,9 +81,9 @@ function GetEncryptPack(k,iv,pack){
     return JSON.stringify(p);
 }
 
-function RunCMDAll(cmd){
+function RunCMDAll(cmd,ifback = true){
     for(i in NIL.SERVERS){
-        NIL.SERVERS[i].sendCMD(cmd,GUID());
+        NIL.SERVERS[i].sendCMD(cmd,GUID(),ifback);
     }
 }
 function sendTextAll(cmd){

@@ -1,4 +1,4 @@
-const helper =  require('../Utils/PackHelper')
+const helper =  require('../Utils/PackHelper');
 function group_main(e){
     if(e.group_id != NIL.CONFIG.GROUP_MAIN)return;
     const pt = NIL.TOOL.GetPlainText(e).split(' ');
@@ -37,12 +37,12 @@ function group_main(e){
                 e.reply(NIL.LANG.get('COMMAND_OVERLOAD_NOTFIND'),true);
                 return;
             }
-            if(NIL.XDB.wl_exsis(e.sender.user_id)){
+            if(NIL.XDB.wl_exsits(e.sender.user_id)){
                 e.reply(NIL.LANG.get('MEMBER_ALREADY_IN_WHITELIST',NIL.XDB.get_xboxid(e.sender.user_id)),true);
                 break;
             }
             var xbox = e.raw_message.substr(6);
-            if(NIL.XDB.xboxid_exsis(xbox)){
+            if(NIL.XDB.xboxid_exsits(xbox)){
                 e.reply(NIL.LANG.get('XBOXID_ALREADY_BIND'),true);
                 break;
             }
@@ -51,7 +51,7 @@ function group_main(e){
             e.reply(NIL.LANG.get('MEMBER_BIND_SUCCESS',xbox),true);
             break;
         case "/unbind":
-            if(NIL.XDB.wl_exsis(e.sender.user_id)==false){
+            if(NIL.XDB.wl_exsits(e.sender.user_id)==false){
                 e.reply(NIL.LANG.get('MEMBER_NOT_BIND'),true);
                 break;
             }
@@ -70,7 +70,7 @@ function group_main(e){
             var at = NIL.TOOL.getAt(e);
             if(e.length!=0){
                 at.forEach(element => {
-                    if(NIL.XDB.wl_exsis(element)){
+                    if(NIL.XDB.wl_exsits(element)){
                         var xbox = NIL.XDB.get_xboxid(element);
                         helper.RunCMDAll(`whitelist add "${xbox}"`);
                         e.reply(NIL.LANG.get('ADD_WL_TO_SERVER',element,xbox));
@@ -89,7 +89,7 @@ function group_main(e){
             var at = NIL.TOOL.getAt(e);
             if(e.length!=0){
                 at.forEach(element => {
-                    if(!NIL.XDB.wl_exsis(element)){
+                    if(!NIL.XDB.wl_exsits(element)){
                         e.reply(NIL.LANG.get('MEMBER_NOT_BIND_WHEN_REMOVE',element));
                     }else{
                         e.reply(NIL.LANG.get('REMOVE_WL_TO_SERVER',element,NIL.XDB.get_xboxid(element)));
@@ -105,7 +105,7 @@ function group_main(e){
 function group_chat(e){
     if(e.group_id != NIL.CONFIG.GROUP_CHAT)return;
     //NIL.Logger.debug(NIL.TOOL.GetFormatText(e));
-    helper.sendTextAll(NIL.LANG.get('GROUP_MEMBER_CHAT',e.sender.nickname,NIL.TOOL.GetFormatText(e)));
+    helper.sendTextAll(NIL.LANG.get('GROUP_MEMBER_CHAT',NIL.XDB.wl_exsits(e.sender.user_id)?NIL.XDB.get_xboxid(e.sender.user_id):e.sender.nickname,NIL.TOOL.GetFormatText(e)));
 }
 
 NIL.FUNC.NATIVE.GROUP.push(group_chat);

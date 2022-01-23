@@ -1,3 +1,3 @@
 
-node.exe app.js
+node.exe app.js --trace-warnings
 pause

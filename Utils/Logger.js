@@ -19,10 +19,12 @@ NIL.Logger.info = (moudle,msg)=>{
  * @param moudle 模块名称
  * @param msg 日志信息
  */
-NIL.Logger.error = (moudle,msg)=>{
+NIL.Logger.error = signale.fatal;/*(moudle,msg)=>{
   console.log(sd.format(new Date(), '[YYYY-MM-DD HH:mm:ss]'),'['+'ERROR'.red+']',`moudle ${moudle} throw a Error!!!`);
-  signale.fatal(new Error(msg));
+  //signale.fatal(new Error(msg));
+  console.log(msg);
 };
+*/
 
 
 /**
