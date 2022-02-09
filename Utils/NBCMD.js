@@ -1,4 +1,4 @@
-const pm = require('./initPlugins');
+const pm = require('./PluginManager');
 const regex = require('./Regex');
 var user_cmds = new Map();
 var console_cmds = new Map();
@@ -79,7 +79,7 @@ regConsoleCmd('stop',(args)=>{
 regConsoleCmd('plreload',(args)=>{
     NIL.Logger.info('NIL','正在重载插件');
 	pm.clear();
-	pm.load();
+	pm.loadAll();
 });
 
 regConsoleCmd('regreload',(arg)=>{

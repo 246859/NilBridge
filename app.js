@@ -79,7 +79,7 @@ require("./Utils/Network");
 require('./Utils/ComputerInfo');
 //加载插件
 // pm:PluginsManager
-const pm =  require('./Utils/initPlugins');
+const pm =  require('./Utils/PluginManager');
 // 加载原生命令
 require('./Utils/NBCMD');
 require('./Utils/express');
